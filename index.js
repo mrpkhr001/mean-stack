@@ -15,6 +15,10 @@ appServer.use(express.static(path.join(__dirname, 'dist/opstinuum')));
 appServer.use(bodyParser.urlencoded({extended: true}));
 appServer.use(cors())
 
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, '../dist/opstinuum/index.html'))
+})
+
 appServer.use(bodyParser.json());
 appServer.use('/api', api);
 
