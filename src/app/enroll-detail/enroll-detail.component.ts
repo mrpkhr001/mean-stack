@@ -8,7 +8,6 @@ import { ICompanyEnrollment } from 'src/model/company-enrollment';
 import { IPack } from 'src/model/pack';
 import { PackService } from '../pack.service';
 import { forkJoin, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 
 @Component({
@@ -54,7 +53,6 @@ export class EnrollDetailComponent implements OnInit {
   }
 
   getAppliedPacks() {
-    
     return this._companyEnrollmentService.getEnrolledCompany(this.id);
   }
 

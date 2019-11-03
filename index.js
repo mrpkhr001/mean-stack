@@ -15,12 +15,12 @@ appServer.use(express.static(path.join(__dirname, 'dist/opstinuum')));
 appServer.use(bodyParser.urlencoded({extended: true}));
 appServer.use(cors())
 
-appServer.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist/opstinuum/index.html'))
-})
-
 appServer.use(bodyParser.json());
 appServer.use('/api', api);
+
+appServer.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'dist/opstinuum/index.html'))
+})
 
 var hskey = fs.readFileSync('serverPrivateKey.pem');
 var hscert = fs.readFileSync('server.crt')

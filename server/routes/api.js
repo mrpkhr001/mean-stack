@@ -161,7 +161,7 @@ router.get('/enroll-company', verifyToken, (req, res) => {
 })
 
 router.get('/enroll-company/:id', verifyToken, (req, res) => {
-
+    
     EnrollCompany.findOne({_id: req.params.id}, function(err, enrolledCompany) {
 
         if (err) {
