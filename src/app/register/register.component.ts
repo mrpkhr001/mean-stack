@@ -13,7 +13,7 @@ import { RegisterService } from '../register.service';
 export class RegisterComponent implements OnInit {
 
   public registration = new RegisterUser();
-  hide = true;
+  hide = false;
 
   constructor(private _registerService : RegisterService, private _router: Router) { }
 

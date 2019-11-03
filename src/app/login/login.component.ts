@@ -14,7 +14,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
-  hide = true ;
+  hide = false ;
 
   constructor(private _registerService : RegisterService, private _router: Router, private _formBuilder: FormBuilder) {}
 
