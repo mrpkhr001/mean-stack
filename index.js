@@ -2,7 +2,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
-var https = require('https');
+var http = require('http');
 var fs = require('fs');
 var cors = require('cors')
 
@@ -30,7 +30,7 @@ var options = {
   cert: hscert
 };
 
-var server = https.createServer(options, appServer);
+var server = http.createServer(appServer);
 
 server.listen(serverPort, function () {
   console.log('Server Node Express server is up on ' + serverPort);
