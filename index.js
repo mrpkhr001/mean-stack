@@ -11,7 +11,7 @@ const serverPort = process.env.PORT || 8443;
 
 const appServer = express();
 
-appServer.use(express.static(path.join(__dirname, 'dist')));
+appServer.use(express.static(path.join(__dirname, 'dist/opstinuum')));
 appServer.use(bodyParser.urlencoded({extended: true}));
 appServer.use(cors())
 
@@ -29,5 +29,5 @@ var options = {
 var server = https.createServer(options, appServer);
 
 server.listen(serverPort, function () {
-  console.log('Server Node Express server is up on 8443');
+  console.log('Server Node Express server is up on ' + serverPort);
 });
