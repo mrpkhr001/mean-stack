@@ -5,10 +5,11 @@
     "ng": "ng",
     "start": "node index.js",
     "heroku-postbuild": "ng build --prod",
-    "build": "ng build",
+    "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "postinstall": "ng build --aot -prod"
   },
   "engines": {
     "node": "12.11.1",
