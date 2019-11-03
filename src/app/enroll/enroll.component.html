@@ -1,0 +1,100 @@
+<div>
+        <div *ngIf="showEnrollments; else notShow">
+    
+            <mat-divider></mat-divider>
+            <mat-card class="example-card">
+                <mat-card-header>
+                    <mat-card-title>Organizations<span style="float:right;"><button mat-raised-button (click)="showEnrollmentForm()">Add New Org</button></span></mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+    
+                    <table mat-table [dataSource]="enrolledCompanies" class="mat-elevation-z8">
+    
+                        <ng-container matColumnDef="companyName">
+                            <th mat-header-cell *matHeaderCellDef> Name </th>
+                            <td mat-cell *matCellDef="let element"> <a href="/enroll-company/{{element._id}}">{{element.companyName}}</a> </td>
+                        </ng-container>
+    
+                        <ng-container matColumnDef="companyAddress">
+                            <th mat-header-cell *matHeaderCellDef> Address </th>
+                            <td mat-cell *matCellDef="let element"> {{element.companyAddress}} </td>
+                        </ng-container>
+    
+                        <ng-container matColumnDef="country">
+                            <th mat-header-cell *matHeaderCellDef> Country </th>
+                            <td mat-cell *matCellDef="let element"> {{element.country}} </td>
+                        </ng-container>
+    
+                        <ng-container matColumnDef="phone">
+                            <th mat-header-cell *matHeaderCellDef> Phone </th>
+                            <td mat-cell *matCellDef="let element"> {{element.phone}} </td>
+                        </ng-container>
+    
+                        <ng-container matColumnDef="website">
+                            <th mat-header-cell *matHeaderCellDef> Website </th>
+                            <td mat-cell *matCellDef="let element"> {{element.website}} </td>
+                        </ng-container>
+    
+                        <ng-container matColumnDef="enrollmentSecret">
+                            <th mat-header-cell *matHeaderCellDef> Enrollment Secret </th>
+                            <td mat-cell *matCellDef="let element"> {{element.enrollmentSecret}} </td>
+                        </ng-container>
+    
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    
+                    </table>
+    
+                </mat-card-content>
+            </mat-card>
+    
+        </div>
+    
+        <ng-template #notShow>
+            <mat-divider></mat-divider>
+            <mat-card class="example-card">
+                <form #enrollCompanyForm="ngForm" (ngSubmit)="enrollCompany()">
+                    <mat-card-header>
+                        <mat-card-title>Enroll New Company</mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content>
+    
+                        <mat-form-field class="full-width">
+                            <input matInput placeholder="Company Name" [(ngModel)]="newCompanyEnrollment.companyName" name="companyName">
+                        </mat-form-field>
+                        <mat-form-field class="full-width">
+                            <input matInput placeholder="Company Address" [(ngModel)]="newCompanyEnrollment.companyAddress" name="address">
+                        </mat-form-field>
+                        <mat-form-field class="full-width">
+                            <input matInput placeholder="Country" [(ngModel)]="newCompanyEnrollment.country" name="country">
+                        </mat-form-field>
+                        <mat-form-field class="full-width">
+                            <input matInput placeholder="Phone" [(ngModel)]="newCompanyEnrollment.phone" name="phone">
+                        </mat-form-field>
+                        <mat-form-field class="full-width">
+                            <input matInput placeholder="Website" [(ngModel)]="newCompanyEnrollment.website" name="website">
+                        </mat-form-field>
+                        <br>
+    
+                        <div class="example-container">
+                            <span>Packs Applied</span>
+                            <div cdkDropList #todoList="cdkDropList" [cdkDropListData]="appliedPacks" [cdkDropListConnectedTo]="[doneList]" class="example-list" (cdkDropListDropped)="drop($event)">
+                                <div class="example-box" *ngFor="let item of appliedPacks" cdkDrag>{{item}}</div>
+                            </div>
+                        </div>
+            
+                        <div class="example-container">
+                            <span>Packs Available</span>
+                            <div cdkDropList #doneList="cdkDropList" [cdkDropListData]="availablePacks" [cdkDropListConnectedTo]="[todoList]" class="example-list" (cdkDropListDropped)="drop($event)">
+                                <div class="example-box" *ngFor="let item of availablePacks" cdkDrag>{{item}}</div>
+                            </div>
+                        </div>
+
+                    </mat-card-content>
+                    <mat-card-actions>
+                        <button mat-raised-button class="submit-btn" type="submit">Enroll</button>
+                    </mat-card-actions>
+                </form>
+            </mat-card>
+        </ng-template>
+    </div>
