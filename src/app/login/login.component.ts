@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { RegisterUser } from 'src/model/register';
 import {Router} from '@angular/router';
-import {FormControl, Validators, FormGroup, FormBuilder} from '@angular/forms';
+import {Validators, FormGroup, FormBuilder} from '@angular/forms';
 
 import { RegisterService } from '../register.service';
-import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
