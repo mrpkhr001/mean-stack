@@ -1,0 +1,5 @@
+{
+    "name": "Node.js application",
+    "description": "Test application",
+    "repository": "https:github.com/heroku/node-js-app"
+}
