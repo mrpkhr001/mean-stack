@@ -10,7 +10,7 @@ import { CompileShallowModuleMetadata } from '@angular/compiler';
 })
 export class PackService {
 
-  private _url: string = "https://localhost:8443/api/pack";
+  private _url: string = "api/pack";
 
   private httpOptions = {
     headers: new HttpHeaders({

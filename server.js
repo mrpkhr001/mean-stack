@@ -7,7 +7,7 @@ var fs = require('fs');
 var cors = require('cors')
 
 const api = require('./server/routes/api');
-const serverPort = 8443;
+const serverPort = process.env.PORT || 8443;
 const clientPort = 8080;
 
 const appServer = express();
@@ -41,4 +41,8 @@ var client = https.createServer(options, appClient);
 
 server.listen(serverPort, function () {
   console.log('Server Node Express server is up on 8443');
+});
+
+server.listen(serverPort, function () {
+  console.log('Client Node Express server is up on 8080');
 });

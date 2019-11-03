@@ -8,7 +8,7 @@ import { Observable, throwError } from 'rxjs';
 })
 export class NodePackService {
 
-  private _url: string = "https://localhost:8443/api/node-pack/";
+  private _url: string = "api/node-pack/";
 
   private httpOptions = {
     headers: new HttpHeaders({

@@ -8,8 +8,8 @@ import { IEnrollment } from '../../src/model/enrollment';
   providedIn: 'root'
 })
 export class EnrollmentService {
-  private _url: string = "https://localhost:8443/api";
-  private _url_node: string = "https://localhost:8443/api/enroll/";
+  private _url: string = "api";
+  private _url_node: string = "api/enroll/";
 
   constructor(private http:HttpClient) { }
 

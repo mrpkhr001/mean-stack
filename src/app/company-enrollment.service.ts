@@ -16,7 +16,7 @@ export class CompanyEnrollmentService {
     })
   };
 
-  private _url: string = "https://localhost:8443/api/enroll-company/";
+  private _url: string = "api/enroll-company/";
 
   constructor(private http:HttpClient) { }
 

@@ -9,8 +9,8 @@ import { Router } from '@angular/router';
 })
 export class RegisterService {
 
-  private _register_url: string = "https://localhost:8443/api/register";
-  private _login_url: string = "https://localhost:8443/api/login";
+  private _register_url: string = "api/register";
+  private _login_url: string = "api/login";
 
   private httpOptions = {
     headers: new HttpHeaders({
