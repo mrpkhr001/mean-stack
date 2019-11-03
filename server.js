@@ -42,7 +42,3 @@ var client = https.createServer(options, appClient);
 server.listen(serverPort, function () {
   console.log('Server Node Express server is up on 8443');
 });
-
-client.listen(clientPort, function () {
-  console.log('Client Node Express server is up on 8080');
-});
