@@ -12,7 +12,6 @@ const RegisterUser = require('../models/register-user');
 
 const DATABASE_URL = process.env.DATABASE_URL || "mongodb://opstinuum:opstinuum@localhost:27017/opstinuum?retryWrites=true&w=majority";
 const SECRET_KEY = uuid();
-const DEFAULT_ADMIN_USER = "admin@opstinuum.com";
 
 const options = {
     useNewUrlParser: true,
@@ -212,11 +211,6 @@ router.route('/login').post((req, res) => {
                 res.status(401).json({message : "incorrect UserName or Password"});
 
             } else {
-                if (registeredUser._id === DEFAULT_ADMIN_USER) {
-                    registeredUser.role = "ADMIN";
-                } else {
-                    registeredUser.role = "USER";
-                }
                 let payload = {subject: registeredUser._id, role: registeredUser.role, enrollmentSecret: registeredUser.enrollmentSecret};
                 let token = jwt.sign (payload, SECRET_KEY);
                 res.status(200).json({token});
