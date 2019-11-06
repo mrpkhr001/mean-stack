@@ -17,6 +17,7 @@ import {
   MatSelectModule,
   MatTableModule,
   MatChipsModule,
+  MatSlideToggleModule,
 
 } from '@angular/material';
 
@@ -43,6 +44,7 @@ const MaterialComponents = [
   ReactiveFormsModule,
   FormsModule,
   MatChipsModule,
+  MatSlideToggleModule,
 ]
 
 @NgModule({

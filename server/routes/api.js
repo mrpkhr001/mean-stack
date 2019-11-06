@@ -10,9 +10,10 @@ const Pack = require('../models/pack');
 const EnrollCompany = require('../models/enroll-company');
 const RegisterUser = require('../models/register-user');
 
-const DATABASE_URL = "mongodb+srv://opstinuum:opstinuum@opstinuum-wioej.mongodb.net/opstinuum?retryWrites=true&w=majority";
-//const DATABASE_URL = "mongodb://opstinuum:opstinuum@localhost:27017/opstinuum?retryWrites=true&w=majority";
+// const DATABASE_URL = "mongodb+srv://opstinuum:opstinuum@opstinuum-wioej.mongodb.net/opstinuum?retryWrites=true&w=majority";
+const DATABASE_URL = "mongodb://opstinuum:opstinuum@localhost:27017/opstinuum?retryWrites=true&w=majority";
 const SECRET_KEY = uuid();
+const DEFAULT_ADMIN_USER = "admin@opstinuum.com";
 
 const options = {
     useNewUrlParser: true,
@@ -50,6 +51,8 @@ function verifyToken(req, res, next) {
                 res.status(401).send("Unauthorized Request");
             }             
             req.userId = payload.subject
+            req.role = payload.role
+            req.enrollmentSecret = payload.enrollmentSecret
             next()
         }
         
@@ -71,6 +74,10 @@ router.get('/', verifyToken, (req, res ) => {
         }
     })
     
+})
+
+router.get('/getUserRole', verifyToken, (req, res) => {
+    return res.status(200).json({role: req.role});
 })
 
 router.get('/enroll/:id', verifyToken, (req, res) => {
@@ -128,8 +135,8 @@ router.post('/enroll-company', verifyToken, (req, res) => {
 })
 
 router.put('/enroll-company', verifyToken, (req, res) => {
-    var newEnrollCompany = new EnrollCompany();
 
+    var newEnrollCompany = new EnrollCompany();
     var query = {'_id':req.body._id};
 
     newEnrollCompany.enrollmentSecret = req.body.enrollmentSecret;
@@ -206,8 +213,12 @@ router.route('/login').post((req, res) => {
                 res.status(401).json({message : "incorrect UserName or Password"});
 
             } else {
-
-                let payload = {subject: registeredUser._id};
+                if (registeredUser._id === DEFAULT_ADMIN_USER) {
+                    registeredUser.role = "ADMIN";
+                } else {
+                    registeredUser.role = "USER";
+                }
+                let payload = {subject: registeredUser._id, role: registeredUser.role, enrollmentSecret: registeredUser.enrollmentSecret};
                 let token = jwt.sign (payload, SECRET_KEY);
                 res.status(200).json({token});
             }
@@ -222,6 +233,11 @@ router.route('/register').post((req, res) => {
     registerUser.name = req.body.name;
     registerUser.password = crypto.createHash('md5').update(req.body.password).digest('hex');
     registerUser.enrollmentSecret = req.body.enrollmentSecret;
+    if (req.body.isAdmin) {
+        registerUser.role = "ADMIN"
+    } else {
+        registerUser.role = "USER"
+    }
 
     //check if enrollment secret is correct
     EnrollCompany.findOne({enrollmentSecret: req.body.enrollmentSecret}, function(error, enrollCompany) {
@@ -229,17 +245,14 @@ router.route('/register').post((req, res) => {
         if (error) {
             console.log('Error finding the enrolled company');
             res.status(500).json(error);
-        } else if (typeof enrollCompany !== 'undefined' && enrollCompany) {
+        } else if ((typeof enrollCompany !== 'undefined' && enrollCompany) || req.body.isAdmin) {
             
             registerUser.save(function(err, inserted) {
                 if (err) {
-                    console.log('Unable to save the pack');
-                    console.log(err);
+                    console.log('Unable to register the User');
                     res.status(500).json(err);
                 } else {
-                    let payload = {subject: inserted._id};
-                    let token = jwt.sign (payload, SECRET_KEY);
-                    res.status(200).json({token});
+                    res.status(200).send("Successfully registered the user : " + inserted._id);
                 }
             });
 

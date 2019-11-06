@@ -8,4 +8,5 @@ export class RegisterUser {
     name: String;
     password: String;
     enrollmentSecret: String;
+    isAdmin: Boolean;
 };

@@ -6,7 +6,9 @@ const registerUserSchema = new Schema  ({
     _id: String,
     name: String,
     password: String,
-    enrollmentSecret: String
+    enrollmentSecret: String,
+    role: String,
+    
 });
 
 module.exports = mongoose.model('registeredUser', registerUserSchema, 'registeredUsers');

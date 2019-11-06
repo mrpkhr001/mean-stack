@@ -11,13 +11,14 @@ export class RegisterService {
 
   private _register_url: string = "api/register";
   private _login_url: string = "api/login";
+  private _user_role_url: string = "api/getUserRole";
 
   private httpOptions = {
     headers: new HttpHeaders({
       'Content-Type':  'application/json',
     })
   };
-    
+  
   constructor(private http:HttpClient, private _router: Router) { }
 
   registerUser(registerUser: RegisterUser) {
@@ -28,6 +29,10 @@ export class RegisterService {
   doUserLogin(registerUser: RegisterUser) {
     const body = JSON.stringify(registerUser);
     return this.http.post<any>(this._login_url, body, this.httpOptions);
+  }
+
+  getUserRole() {
+    return this.http.get<any>(this._user_role_url, this.httpOptions);
   }
 
   loggedInUser() {

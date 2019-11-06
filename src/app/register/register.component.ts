@@ -14,6 +14,7 @@ export class RegisterComponent implements OnInit {
 
   public registration = new RegisterUser();
   hide = false;
+  color = 'primary';
 
   constructor(private _registerService : RegisterService, private _router: Router) { }
 
@@ -21,16 +22,16 @@ export class RegisterComponent implements OnInit {
   }
 
   registerUser() {
-    console.log(this.registration);
     this._registerService.registerUser(this.registration).subscribe(
       response => {
-        console.log(response);
-        localStorage.setItem('token', response.token)
-        this._router.navigate(['/node']);
+        console.log("Response : " + response)
+        this.registration = new RegisterUser();
+        this._router.navigate(['/login']);
       },
-      err => console.log(err)
+      err => {
+        console.log("Error : " + err)
+      }
     );
-    this.registration = new RegisterUser();
 
   }
 

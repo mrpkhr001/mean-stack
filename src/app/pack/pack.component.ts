@@ -2,6 +2,7 @@ import { Component, OnInit} from '@angular/core';
 import { PackService } from '../pack.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { RegisterService } from '../register.service';
 
 @Component({
   selector: 'app-pack',
@@ -13,8 +14,9 @@ export class PackComponent implements OnInit {
   public packs = [];
   public errorMsg;
   showPack = true;
+  public isAdmin: boolean = false;
 
-  constructor(private _packService: PackService, private _router: Router) { }
+  constructor(private _packService: PackService, private _router: Router, private _registerService: RegisterService) { }
 
   ngOnInit() {
     this._packService.getPacks()
@@ -27,6 +29,19 @@ export class PackComponent implements OnInit {
                   }
                   this.errorMsg = error
                 });
+
+    this._registerService.getUserRole().subscribe(data => {
+      {
+        if (data.role === "ADMIN") {
+          this.isAdmin = true;
+        } else {
+          this.isAdmin = false;
+        }
+      }
+    },
+      error => this.errorMsg = error
+    );
+          
   }
 
   showPacks() {

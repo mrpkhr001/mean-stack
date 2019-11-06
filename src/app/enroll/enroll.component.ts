@@ -7,6 +7,7 @@ import { PackService } from '../pack.service';
 import { IPack } from 'src/model/pack';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { RegisterService } from '../register.service';
 
 @Component({
   selector: 'app-enroll',
@@ -17,6 +18,7 @@ export class EnrollComponent implements OnInit {
 
   public enrolledCompanies = [];
   public errorMsg;
+  public isAdmin: boolean = false;
   
   displayedColumns: string[] = ['companyName', 'companyAddress', 'country', 'phone', 'website', 'enrollmentSecret'];
   dataSource = this.enrolledCompanies;
@@ -24,7 +26,7 @@ export class EnrollComponent implements OnInit {
   showEnrollments: boolean = true;
   newCompanyEnrollment: ICompanyEnrollment = new ICompanyEnrollment();
 
-  constructor(private _packService: PackService, private _companyEnrollmentService: CompanyEnrollmentService, private _router: Router) { }
+  constructor(private _packService: PackService, private _companyEnrollmentService: CompanyEnrollmentService, private _router: Router, private _registerService: RegisterService) { }
 
   ngOnInit() {
     this._companyEnrollmentService.getEnrolledCompanies()
@@ -41,6 +43,18 @@ export class EnrollComponent implements OnInit {
     this._packService.getPacks().subscribe(data => 
       {this.allPacks = data; this.allPacks.forEach(pack => this.availablePacks.push(pack._id))}, 
       error => this.errorMsg = error);
+    
+    this._registerService.getUserRole().subscribe(data => {
+        {
+          if (data.role === "ADMIN") {
+            this.isAdmin = true;
+          } else {
+            this.isAdmin = false;
+          }
+        }
+    },
+      error => this.errorMsg = error
+    );
 
   }
   
