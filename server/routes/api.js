@@ -10,8 +10,7 @@ const Pack = require('../models/pack');
 const EnrollCompany = require('../models/enroll-company');
 const RegisterUser = require('../models/register-user');
 
-const DATABASE_URL = "mongodb+srv://opstinuum:opstinuum@opstinuum-wioej.mongodb.net/opstinuum?retryWrites=true&w=majority";
-// const DATABASE_URL = "mongodb://opstinuum:opstinuum@localhost:27017/opstinuum?retryWrites=true&w=majority";
+const DATABASE_URL = process.env.DATABASE_URL || "mongodb://opstinuum:opstinuum@localhost:27017/opstinuum?retryWrites=true&w=majority";
 const SECRET_KEY = uuid();
 const DEFAULT_ADMIN_USER = "admin@opstinuum.com";
 
