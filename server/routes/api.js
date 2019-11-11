@@ -315,16 +315,7 @@ async function getEnrolmentPacks(enrollment) {
     
     var config = {
         options : {
-            "disable_logging": false,
-            "schedule_splay_percent": "10",
-            "events_expiry": "3600",
-            "verbose": "false",
-            "worker_threads": "2",
-            "enable_monitor": true,
-            "disable_events": false,
-            "disable_audit": false,
-            "host_identifier": "hostname",
-            "schedule_default_interval": "3600"
+            "host_identifier": "hostname"
         },
         packs : {},
         "node_invalid": false
