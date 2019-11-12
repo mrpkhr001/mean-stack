@@ -1,43 +1,50 @@
 <div class="example-container">
 
-    <mat-divider></mat-divider>
-    <mat-card class="example-card">
-        <form class="example-form" #userRegistrationForm="ngForm" (ngSubmit)="registerUser()">
-            <mat-card-header>
-                <mat-card-title>Registration</mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
+  <mat-divider></mat-divider>
+  <mat-card class="example-card">
+    <form class="example-form" #userRegistrationForm="ngForm" (ngSubmit)="registerUser()">
+      <mat-card-header>
+        <mat-card-title>Registration</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
 
-                <mat-slide-toggle class="example-margin" [checked]="registration.isAdmin" [color]="color" [(ngModel)]="registration.isAdmin" name="isAdmin">Register as Admin</mat-slide-toggle>
+        <mat-slide-toggle class="example-margin" [checked]="registration.isAdmin" [color]="color"
+                          [(ngModel)]="registration.isAdmin" name="isAdmin">Register as Admin
+        </mat-slide-toggle>
 
-                <mat-form-field class="example-full-width">
-                    <input matInput type="email" placeholder="Email" [(ngModel)]="registration._id" name="_id">
-                    <mat-hint *ngIf="!registration.isAdmin">Required for verification and login</mat-hint>
-                    <mat-hint *ngIf="registration.isAdmin">Required for verification and login. Admin user registration will be validated by admin@opstinuum.com</mat-hint>
-                </mat-form-field>
-                <mat-form-field class="example-full-width">
-                    <input matInput type="text" placeholder="Name" [(ngModel)]="registration.name" name="name">
-                    <mat-hint>Full name of user</mat-hint>
-                </mat-form-field>
-                <mat-form-field class="example-full-width">
-                    <input matInput [type]="hide ? 'text' : 'password'" placeholder="Password" [(ngModel)]="registration.password" name="password">
-                    <button mat-icon-button matSuffix type="button" (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-                        <mat-icon>{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
-                    </button>
-                    <mat-hint>Must be more than 5 characters</mat-hint>
-                </mat-form-field>
-                <div *ngIf="!registration.isAdmin"> 
-                    <mat-form-field class="example-full-width">
-                        <input matInput type="text" placeholder="Enrollment Secret" [(ngModel)]="registration.enrollmentSecret" name="enrollmentSecret">
-                        <mat-hint>Should be provided by your organization</mat-hint>
-                    </mat-form-field>
-                </div>
-    
-            </mat-card-content>
-            <mat-card-actions>
-                <button mat-raised-button class="submit-btn" type="submit">Register</button>
-            </mat-card-actions>
-        </form>
-    </mat-card>
-    
+        <mat-form-field class="example-full-width">
+          <input matInput type="email" placeholder="Email" [(ngModel)]="registration._id" name="_id">
+          <mat-hint *ngIf="!registration.isAdmin">Required for verification and login</mat-hint>
+          <mat-hint *ngIf="registration.isAdmin">Required for verification and login. Admin user registration will be
+            validated by admin@opstinuum.com
+          </mat-hint>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <input matInput type="text" placeholder="Name" [(ngModel)]="registration.name" name="name">
+          <mat-hint>Full name of user</mat-hint>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <input matInput [type]="hide ? 'text' : 'password'" placeholder="Password" [(ngModel)]="registration.password"
+                 name="password">
+          <button mat-icon-button matSuffix type="button" (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                  [attr.aria-pressed]="hide">
+            <mat-icon>{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+          </button>
+          <mat-hint>Must be more than 5 characters</mat-hint>
+        </mat-form-field>
+        <div *ngIf="!registration.isAdmin">
+          <mat-form-field class="example-full-width">
+            <input matInput type="text" placeholder="Enrollment Secret" [(ngModel)]="registration.enrollmentSecret"
+                   name="enrollmentSecret">
+            <mat-hint>Should be provided by your organization</mat-hint>
+          </mat-form-field>
+        </div>
+
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button class="submit-btn" type="submit">Register</button>
+      </mat-card-actions>
+    </form>
+  </mat-card>
+
 </div>

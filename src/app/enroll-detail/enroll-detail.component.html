@@ -1,44 +1,46 @@
 <mat-card class="example-card">
-    <form #enrollCompanyForm="ngForm" (ngSubmit)="updateEnrolledCompany()">
-        <mat-card-header>
-            <mat-card-title>Enrolled Company</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
+  <form #enrollCompanyForm="ngForm" (ngSubmit)="updateEnrolledCompany()">
+    <mat-card-header>
+      <mat-card-title>Enrolled Company</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
 
-            <mat-form-field class="full-width">
-                <input matInput placeholder="Company Name" [(ngModel)]="enrolledCompany.companyName" name="companyName">
-            </mat-form-field>
-            <mat-form-field class="full-width">
-                <input matInput placeholder="Company Address" [(ngModel)]="enrolledCompany.companyAddress" name="address">
-            </mat-form-field>
-            <mat-form-field class="full-width">
-                <input matInput placeholder="Country" [(ngModel)]="enrolledCompany.country" name="country">
-            </mat-form-field>
-            <mat-form-field class="full-width">
-                <input matInput placeholder="Phone" [(ngModel)]="enrolledCompany.phone" name="phone">
-            </mat-form-field>
-            <mat-form-field class="full-width">
-                <input matInput placeholder="Website" [(ngModel)]="enrolledCompany.website" name="website">
-            </mat-form-field>
-            <br>
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Company Name" [(ngModel)]="enrolledCompany.companyName" name="companyName">
+      </mat-form-field>
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Company Address" [(ngModel)]="enrolledCompany.companyAddress" name="address">
+      </mat-form-field>
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Country" [(ngModel)]="enrolledCompany.country" name="country">
+      </mat-form-field>
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Phone" [(ngModel)]="enrolledCompany.phone" name="phone">
+      </mat-form-field>
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Website" [(ngModel)]="enrolledCompany.website" name="website">
+      </mat-form-field>
+      <br>
 
-            <div class="example-container">
-                <span>Packs Applied</span>
-                <div cdkDropList #todoList="cdkDropList" [cdkDropListData]="appliedPacks" [cdkDropListConnectedTo]="[doneList]" class="example-list" (cdkDropListDropped)="drop($event)">
-                    <div class="example-box" *ngFor="let item of appliedPacks" cdkDrag>{{item}}</div>
-                </div>
-            </div>
+      <div class="example-container">
+        <span>Packs Applied</span>
+        <div cdkDropList #todoList="cdkDropList" [cdkDropListData]="appliedPacks" [cdkDropListConnectedTo]="[doneList]"
+             class="example-list" (cdkDropListDropped)="drop($event)">
+          <div class="example-box" *ngFor="let item of appliedPacks" cdkDrag>{{item}}</div>
+        </div>
+      </div>
 
-            <div class="example-container">
-                <span>Packs Available</span>
-                <div cdkDropList #doneList="cdkDropList" [cdkDropListData]="availablePacks" [cdkDropListConnectedTo]="[todoList]" class="example-list" (cdkDropListDropped)="drop($event)">
-                    <div class="example-box" *ngFor="let item of availablePacks" cdkDrag>{{item}}</div>
-                </div>
-            </div>
+      <div class="example-container">
+        <span>Packs Available</span>
+        <div cdkDropList #doneList="cdkDropList" [cdkDropListData]="availablePacks"
+             [cdkDropListConnectedTo]="[todoList]" class="example-list" (cdkDropListDropped)="drop($event)">
+          <div class="example-box" *ngFor="let item of availablePacks" cdkDrag>{{item}}</div>
+        </div>
+      </div>
 
-        </mat-card-content>
-        <mat-card-actions>
-            <button mat-raised-button class="submit-btn" type="submit">Update</button>
-        </mat-card-actions>
-    </form>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button class="submit-btn" type="submit">Update</button>
+    </mat-card-actions>
+  </form>
 </mat-card>

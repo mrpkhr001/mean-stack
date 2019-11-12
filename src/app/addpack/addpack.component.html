@@ -1,55 +1,58 @@
 <div>
-		<div class="register-item">
-			<form #addPackform="ngForm" (ngSubmit)="createPack()" class="form form-register">
-				<div>
-					<mat-form-field class="example-chip-list">
-						<mat-chip-list #chipList aria-label="Applicable OS">
-							<mat-chip *ngFor="let os of osArray" [selectable]="selectable" selected="true" [color]="os.color" [removable]="removable" (removed)="remove(os)">
-								{{os.name}}
-								<mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-							</mat-chip>
-							<input placeholder="Applicable OS"
-									[matChipInputFor]="chipList"
-									[matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-									[matChipInputAddOnBlur]="addOnBlur"
-									(matChipInputTokenEnd)="add($event)">
-						</mat-chip-list>
-						</mat-form-field>					
-					<mat-form-field class="full-width">
-						<input matInput placeholder="Pack Name" [(ngModel)]="ipack._id" name="_id">
-					</mat-form-field>
-					<br>
-					<mat-form-field class="full-width">
-						<input matInput placeholder="Pack Description" [(ngModel)]="ipack.description" name="description">
-					</mat-form-field>
-					<br>
-					<button mat-raised-button type="button" (click)="addBlankQuery()">Add Query</button>
-					<br>
-				</div>
-	
-				<div *ngFor="let query of ipack.queries; let i = index;">
-					<mat-divider></mat-divider>
-					<mat-form-field class="full-width">
-						<input matInput placeholder="Query Name" [(ngModel)]="ipack.queries[i]._id" name="ipack.queries[{{i}}].name">
-					</mat-form-field>
-					<br>
-					<mat-form-field class="full-width">
-						<input matInput placeholder="Query" [(ngModel)]="ipack.queries[i].query" name="ipack.queries[{{i}}].query">
-					</mat-form-field>
-					<br>
-					<mat-form-field class="full-width">
-						<input matInput placeholder="Query Interval (in secs)" [(ngModel)]="ipack.queries[i].interval" name="ipack.queries[{{i}}].interval">
-					</mat-form-field>
-					<br>
-					<mat-form-field class="full-width">
-						<input matInput placeholder="Description" [(ngModel)]="ipack.queries[i].description" name="ipack.queries[{{i}}].description">
-					</mat-form-field>
-					<br>
-				</div>
-	
-				<div class="form-field">
-					<input type="submit" class="btn btn-primary" value="Create">
-				</div>
-			</form>
-		</div>
-	</div>
+  <div class="register-item">
+    <form #addPackform="ngForm" (ngSubmit)="createPack()" class="form form-register">
+      <div>
+        <mat-form-field class="example-chip-list">
+          <mat-chip-list #chipList aria-label="Applicable OS">
+            <mat-chip *ngFor="let os of osArray" [selectable]="selectable" selected="true" [color]="os.color"
+                      [removable]="removable" (removed)="remove(os)">
+              {{os.name}}
+              <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+            </mat-chip>
+            <input placeholder="Applicable OS"
+                   [matChipInputFor]="chipList"
+                   [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                   [matChipInputAddOnBlur]="addOnBlur"
+                   (matChipInputTokenEnd)="add($event)">
+          </mat-chip-list>
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Pack Name" [(ngModel)]="ipack._id" name="_id">
+        </mat-form-field>
+        <br>
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Pack Description" [(ngModel)]="ipack.description" name="description">
+        </mat-form-field>
+        <br>
+        <button mat-raised-button type="button" (click)="addBlankQuery()">Add Query</button>
+        <br>
+      </div>
+
+      <div *ngFor="let query of ipack.queries; let i = index;">
+        <mat-divider></mat-divider>
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Query Name" [(ngModel)]="ipack.queries[i]._id" name="ipack.queries[{{i}}].name">
+        </mat-form-field>
+        <br>
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Query" [(ngModel)]="ipack.queries[i].query" name="ipack.queries[{{i}}].query">
+        </mat-form-field>
+        <br>
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Query Interval (in secs)" [(ngModel)]="ipack.queries[i].interval"
+                 name="ipack.queries[{{i}}].interval">
+        </mat-form-field>
+        <br>
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Description" [(ngModel)]="ipack.queries[i].description"
+                 name="ipack.queries[{{i}}].description">
+        </mat-form-field>
+        <br>
+      </div>
+
+      <div class="form-field">
+        <input type="submit" class="btn btn-primary" value="Create">
+      </div>
+    </form>
+  </div>
+</div>
