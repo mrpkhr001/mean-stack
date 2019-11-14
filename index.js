@@ -7,7 +7,9 @@ var fs = require('fs');
 var cors = require('cors')
 
 const api = require('./server/routes/api');
-const serverPort = process.env.PORT || 8443;
+const data = require('./server/routes/data');
+
+const serverPort = process.env.PORT || 8080;
 
 const appServer = express();
 
@@ -17,6 +19,7 @@ appServer.use(cors())
 
 appServer.use(bodyParser.json());
 appServer.use('/api', api);
+appServer.use('/data', data);
 
 appServer.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist/opstinuum/index.html'))

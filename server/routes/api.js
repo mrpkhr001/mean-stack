@@ -1,17 +1,17 @@
 const express = require ('express');
 const router = express.Router();
 const mongoose = require('mongoose');
-const uuid = require('uuid-random');
-var crypto = require('crypto');
 const jwt = require('jsonwebtoken');
+const uuid = require('uuid-random');
 
+const TOKEN = require('./verify-token');
+const password = require('./password');
 const EnrollNode = require('../models/enroll-node');
 const Pack = require('../models/pack');
 const EnrollCompany = require('../models/enroll-company');
 const RegisterUser = require('../models/register-user');
 
 const DATABASE_URL = process.env.DATABASE_URL || "mongodb://opstinuum:opstinuum@localhost:27017/opstinuum?retryWrites=true&w=majority";
-const SECRET_KEY = uuid();
 
 const options = {
     useNewUrlParser: true,
@@ -33,34 +33,8 @@ mongoose.connect(DATABASE_URL, options).then(
     err => { "Unable to connect to the datasbase" }
 );
 
-function verifyToken(req, res, next) {
 
-    if (!req.headers.authorization) {
-        res.status(401).send("Unauthorized Request");
-    }
-
-    try {
-        let token = req.headers.authorization.split(' ')[1];
-        if (token === 'null') {
-            res.status(401).send("Unauthorized Request");
-        } else {
-            let payload = jwt.verify(token, SECRET_KEY);
-            if(!payload) {
-                res.status(401).send("Unauthorized Request");
-            }             
-            req.userId = payload.subject
-            req.role = payload.role
-            req.enrollmentSecret = payload.enrollmentSecret
-            next()
-        }
-        
-    } catch (error) {
-        res.status(401).send("Unauthorized Request");
-    }
-
-}
-
-router.get('/', verifyToken, (req, res ) => {
+router.get('/', TOKEN.verifyToken, (req, res ) => {
     
     EnrollNode.find({}).exec(function(err, enrollments) {
 
@@ -74,11 +48,11 @@ router.get('/', verifyToken, (req, res ) => {
     
 })
 
-router.get('/getUserRole', verifyToken, (req, res) => {
+router.get('/getUserRole', TOKEN.verifyToken, (req, res) => {
     return res.status(200).json({role: req.role});
 })
 
-router.get('/enroll/:id', verifyToken, (req, res) => {
+router.get('/enroll/:id', TOKEN.verifyToken, (req, res) => {
 
     EnrollNode.findOne({_id: req.params.id}, function (error, enrollment) {
         if (error) {
@@ -90,7 +64,7 @@ router.get('/enroll/:id', verifyToken, (req, res) => {
     })
 })
 
-router.post('/pack', verifyToken, (req, res) => {
+router.post('/pack', TOKEN.verifyToken, (req, res) => {
     var newPack = new Pack();
     newPack._id = req.body._id;
     newPack.description = req.body.description;
@@ -108,7 +82,7 @@ router.post('/pack', verifyToken, (req, res) => {
     });
 })
 
-router.post('/enroll-company', verifyToken, (req, res) => {
+router.post('/enroll-company', TOKEN.verifyToken, (req, res) => {
     var newEnrollCompany = new EnrollCompany();
 
     newEnrollCompany.enrollmentSecret = uuid();
@@ -132,7 +106,7 @@ router.post('/enroll-company', verifyToken, (req, res) => {
     });
 })
 
-router.put('/enroll-company', verifyToken, (req, res) => {
+router.put('/enroll-company', TOKEN.verifyToken, (req, res) => {
 
     var newEnrollCompany = new EnrollCompany();
     var query = {'_id':req.body._id};
@@ -152,7 +126,7 @@ router.put('/enroll-company', verifyToken, (req, res) => {
     });    
 })
 
-router.get('/enroll-company', verifyToken, (req, res) => {
+router.get('/enroll-company', TOKEN.verifyToken, (req, res) => {
 
     EnrollCompany.find({}).exec(function(err, enrolledCompanies) {
 
@@ -165,7 +139,7 @@ router.get('/enroll-company', verifyToken, (req, res) => {
     });
 })
 
-router.get('/enroll-company/:id', verifyToken, (req, res) => {
+router.get('/enroll-company/:id', TOKEN.verifyToken, (req, res) => {
     
     EnrollCompany.findOne({_id: req.params.id}, function(err, enrolledCompany) {
 
@@ -178,7 +152,7 @@ router.get('/enroll-company/:id', verifyToken, (req, res) => {
     });
 })
 
-router.get('/pack', verifyToken, (req, res) => {
+router.get('/pack', TOKEN.verifyToken, (req, res) => {
     
     Pack.find({}).exec(function(err, packs) {
 
@@ -195,7 +169,6 @@ router.route('/login').post((req, res) => {
 
     var loginUser = new RegisterUser();
     loginUser._id = req.body._id;
-    loginUser.password = crypto.createHash('md5').update(req.body.password).digest('hex');
 
     //check if enrollment secret is correct
     RegisterUser.findOne({_id: loginUser._id}, function(error, registeredUser) {
@@ -206,13 +179,13 @@ router.route('/login').post((req, res) => {
         } else {
             if (typeof registeredUser === 'undefined' 
                 || !registeredUser 
-                || loginUser.password !== registeredUser.password) {
+                || !password.passwordMatched(req.body.password, registeredUser.password)) {
 
                 res.status(401).json({message : "incorrect UserName or Password"});
 
             } else {
                 let payload = {subject: registeredUser._id, role: registeredUser.role, enrollmentSecret: registeredUser.enrollmentSecret};
-                let token = jwt.sign (payload, SECRET_KEY);
+                let token = jwt.sign (payload, TOKEN.SECRET_KEY);
                 res.status(200).json({token});
             }
         }
@@ -224,7 +197,9 @@ router.route('/register').post((req, res) => {
     var registerUser = new RegisterUser();
     registerUser._id = req.body._id;
     registerUser.name = req.body.name;
-    registerUser.password = crypto.createHash('md5').update(req.body.password).digest('hex');
+
+    var salt = password.genRandomString();
+    registerUser.password = password.sha512(req.body.password, salt);
     registerUser.enrollmentSecret = req.body.enrollmentSecret;
     if (req.body.isAdmin) {
         registerUser.role = "ADMIN"
@@ -245,7 +220,7 @@ router.route('/register').post((req, res) => {
                     console.log('Unable to register the User');
                     res.status(500).json(err);
                 } else {
-                    res.status(200).send("Successfully registered the user : " + inserted._id);
+                    res.status(200).send("Successfully registered the user");
                 }
             });
 

@@ -5,7 +5,10 @@ var Schema = mongoose.Schema;
 const registerUserSchema = new Schema  ({
     _id: String,
     name: String,
-    password: String,
+    password: {
+      salt: String,
+      passwordHash: String,
+    },
     enrollmentSecret: String,
     role: String,
     
