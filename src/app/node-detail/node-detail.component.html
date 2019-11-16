@@ -195,7 +195,7 @@
     </mat-tab>
     <mat-tab label="Pack Data">
       <div class="example-container">
-
+        
         <mat-accordion class="example-headers-align">
           <mat-expansion-panel *ngFor="let item of packQueryIndex; let i = index;" [expanded]="step === i" (opened)="setStep(i)" hideToggle>
             <mat-expansion-panel-header>
@@ -207,11 +207,6 @@
           </mat-expansion-panel>
 
         </mat-accordion>
-
-        <span>Packs Applied</span>
-        <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
-          <div class="example-box" *ngFor="let item of packQueryIndex" cdkDrag>{{item.packQueryIndex}}</div>
-        </div>
       </div>
     </mat-tab>
   </mat-tab-group>

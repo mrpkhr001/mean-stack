@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
-import { MatTabChangeEvent } from '@angular/material';
 import { forkJoin, Observable } from 'rxjs';
 
 import { EnrollmentService } from '../enrollment.service';
@@ -27,7 +26,7 @@ export class NodeDetailComponent implements OnInit {
   public errorMsg;
   packQueryIndex: IPackQueryIndex[] = [];
   allPacks: IPack[] = [];
-  step = 0;
+  step = -1;
   queryData = {}
 
   constructor(private route:ActivatedRoute, 
