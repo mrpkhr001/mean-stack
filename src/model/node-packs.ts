@@ -1,5 +1,5 @@
 
 export class INodePacks { 
-    _id: String;
-    packs: String[]
+    _id: string;
+    packs: string[]
 };

@@ -1,7 +1,7 @@
 export class IQuery {
-    _id: String;
-    query: String;
-    description: String;
+    _id: string;
+    query: string;
+    description: string;
     interval: Number;
 
     constructor(){

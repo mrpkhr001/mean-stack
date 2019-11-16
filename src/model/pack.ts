@@ -1,8 +1,8 @@
 import { IQuery } from './query';
 
 export class IPack { 
-    _id: String;
-    description: String;
-    operatingStytem: String[];
+    _id: string;
+    description: string;
+    operatingStytem: string[];
     queries: IQuery[]
 };

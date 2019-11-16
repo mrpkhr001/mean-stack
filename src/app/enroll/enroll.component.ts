@@ -58,8 +58,8 @@ export class EnrollComponent implements OnInit {
 
   }
   
-  appliedPacks: String[] = [];
-  availablePacks: String[] = [];
+  appliedPacks: string[] = [];
+  availablePacks: string[] = [];
   allPacks: IPack[] = [];
   
 

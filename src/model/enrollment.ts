@@ -1,55 +1,55 @@
 export class IEnrollment { 
-    _id: String;
-    packs: String[];
+    _id: string;
+    packs: string[];
     host_details:{ 
         os_version:{ 
-           build:String,
-           major:String,
-           minor:String,
-           name:String,
-           patch:String,
-           platform:String,
-           platform_like:String,
-           version:String
+           build:string,
+           major:string,
+           minor:string,
+           name:string,
+           patch:string,
+           platform:string,
+           platform_like:string,
+           version:string
         },
         osquery_info:{ 
-           build_distro:String,
-           build_platform:String,
-           config_hash:String,
-           config_valid:String,
-           extensions:String,
-           instance_id:String,
-           pid:String,
-           start_time:String,
-           uuid:String,
-           version:String,
-           watcher:String
+           build_distro:string,
+           build_platform:string,
+           config_hash:string,
+           config_valid:string,
+           extensions:string,
+           instance_id:string,
+           pid:string,
+           start_time:string,
+           uuid:string,
+           version:string,
+           watcher:string
         },
         platform_info:{ 
-           address:String,
-           date:String,
-           extra:String,
-           revision:String,
-           size:String,
-           vendor:String,
-           version:String,
-           volume_size:String
+           address:string,
+           date:string,
+           extra:string,
+           revision:string,
+           size:string,
+           vendor:string,
+           version:string,
+           volume_size:string
         },
          system_info: { 
-            computer_name:String,
-            cpu_brand:String,
-            cpu_logical_cores:String,
-            cpu_physical_cores:String,
-            cpu_subtype:String,
-            cpu_type:String,
-            hardware_model:String,
-            hardware_serial:String,
-            hardware_vendor:String,
-            hardware_version:String,
-            hostname:String,
-            local_hostname:String,
-            physical_memory:String,
-            uuid:String
+            computer_name:string,
+            cpu_brand:string,
+            cpu_logical_cores:string,
+            cpu_physical_cores:string,
+            cpu_subtype:string,
+            cpu_type:string,
+            hardware_model:string,
+            hardware_serial:string,
+            hardware_vendor:string,
+            hardware_version:string,
+            hostname:string,
+            local_hostname:string,
+            physical_memory:string,
+            uuid:string
         }
     }
 };

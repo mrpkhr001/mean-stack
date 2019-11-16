@@ -1,10 +1,10 @@
 export class ICompanyEnrollment { 
-    _id: String;
-    enrollmentSecret: String;
-    companyName: String;
-    companyAddress: String;
-    country: String;
-    phone: String;
-    website: String;
-    packs: String[];
+    _id: string;
+    enrollmentSecret: string;
+    companyName: string;
+    companyAddress: string;
+    country: string;
+    phone: string;
+    website: string;
+    packs: string[];
 };

@@ -20,6 +20,7 @@ import { NodePackService } from './node-pack.service';
 import { EnrollDetailComponent } from './enroll-detail/enroll-detail.component';
 import { RegisterComponent } from './register/register.component';
 import { RegisterService } from './register.service';
+import { PackDataService } from './pack-data.service';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './auth.guard';
 import { TokenInterceptorService } from './token-interceptor.service';
@@ -52,6 +53,7 @@ import { MatChipInput } from '@angular/material';
     CompanyEnrollmentService,
     NodePackService,
     RegisterService,
+    PackDataService,
     AuthGuard,
     {
       provide: HTTP_INTERCEPTORS,

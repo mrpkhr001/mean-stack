@@ -17,6 +17,7 @@ router.post('/searchData', token.verifyToken, (req, res) => {
   },function (error, response,status) {
       if (error){
         console.log("search error: "+error)
+        res.status(500).send(error);
       }
       else {
         res.status(200).json(response.hits.hits);

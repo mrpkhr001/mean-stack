@@ -21,8 +21,8 @@ export class EnrollDetailComponent implements OnInit {
   public enrolledCompany: ICompanyEnrollment;
   public errorMsg;
 
-  appliedPacks: String[] = [];
-  availablePacks: String[] = [];
+  appliedPacks: string[] = [];
+  availablePacks: string[] = [];
   allPacks: IPack[] = [];
 
   constructor(private _packService: PackService, private route:ActivatedRoute, private _companyEnrollmentService: CompanyEnrollmentService) { }
