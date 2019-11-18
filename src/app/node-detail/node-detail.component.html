@@ -195,15 +195,18 @@
     </mat-tab>
     <mat-tab label="Pack Data">
       <div class="example-container">
-        
+
         <mat-accordion class="example-headers-align">
           <mat-expansion-panel *ngFor="let item of packQueryIndex; let i = index;" [expanded]="step === i" (opened)="setStep(i)" hideToggle>
             <mat-expansion-panel-header>
-              {{item.query}} : <I>{{item.queryDescription}}</I>
+              <B>Pack : {{item.pack}} </B>  {{item.query}} : <I>{{item.queryDescription}}</I>
             </mat-expansion-panel-header>
 
-              {{queryData}}
-
+            <table border="1">
+                <tr *ngFor="let qd of queryData; let j = index;">
+                    <td *ngFor="let val of qd">{{val}}</td>
+                </tr>
+            </table>
           </mat-expansion-panel>
 
         </mat-accordion>

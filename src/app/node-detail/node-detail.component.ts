@@ -26,7 +26,7 @@ export class NodeDetailComponent implements OnInit {
   public errorMsg;
   packQueryIndex: IPackQueryIndex[] = [];
   allPacks: IPack[] = [];
-  step = -1;
+  step = 0;
   queryData = {}
 
   constructor(private route:ActivatedRoute, 
@@ -63,7 +63,6 @@ export class NodeDetailComponent implements OnInit {
   setStep(index: number) {
     this.step = index;
     let queryIndex = this.packQueryIndex[index].packQueryIndex;
-    console.log("queryIndex : " + queryIndex);
     this._packDataService.getDataForPack(this.id, queryIndex).subscribe(
             response => {this.queryData = response}, error => {}
     );
@@ -85,8 +84,6 @@ export class NodeDetailComponent implements OnInit {
   getAllPacks() {
     return this._packService.getPacks();
   }
-
-
 
   drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.enrollment.packs, event.previousIndex, event.currentIndex);

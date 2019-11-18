@@ -17,17 +17,32 @@ router.post('/searchData', token.verifyToken, (req, res) => {
   },function (error, response,status) {
       if (error){
         console.log("search error: "+error)
-        res.status(500).send(error);
+        res.status(status).send(error);
       }
       else {
-        res.status(200).json(response.hits.hits);
+        dataResponse = [];
+        let keys = [];
+        response.hits.hits.forEach(function(hit){
+          if (hit._source.hostIdentifier === req.body.hostIdentifier) {
+            dataResponse.push(hit._source.columns);
+            keys = Object.keys(hit._source.columns);
+          }
+        })
+
+        dataTable = [];
+        dataTable.push(keys);
+        for (var i = 0; i < dataResponse.length; i ++) {
+          obj = [];
+          for (var j = 0; j < keys.length; j++) {
+            var key = keys[j]
+            obj.push(dataResponse[i][key]);            
+          }
+          dataTable.push(obj);
+
+        }
+        res.status(status).json(dataTable);
       }
   });
-
 })
 
 module.exports = router;
-
-
-
-
