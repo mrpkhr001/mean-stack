@@ -18,6 +18,7 @@ import {
   MatTableModule,
   MatChipsModule,
   MatSlideToggleModule,
+  MatStepperModule,
 
 } from '@angular/material';
 
@@ -45,6 +46,7 @@ const MaterialComponents = [
   FormsModule,
   MatChipsModule,
   MatSlideToggleModule,
+  MatStepperModule
 ]
 
 @NgModule({

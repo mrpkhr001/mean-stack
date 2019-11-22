@@ -9,6 +9,7 @@ import { EnrollComponent } from './enroll/enroll.component';
 import { EnrollDetailComponent } from './enroll-detail/enroll-detail.component';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
+import { PasswordResetComponent } from './password-reset/password-reset.component';
 
 const routes: Routes = [
   {path:'', redirectTo: '/nodes', pathMatch: 'full'},
@@ -19,7 +20,8 @@ const routes: Routes = [
   {path: "enroll-company/:id", component: EnrollDetailComponent},
   {path: "enroll", component: EnrollComponent},
   {path: "register", component: RegisterComponent},
-  {path: "login", component: LoginComponent}
+  {path: "login", component: LoginComponent},
+  {path: "password-reset", component: PasswordResetComponent}
 ];
 
 @NgModule({

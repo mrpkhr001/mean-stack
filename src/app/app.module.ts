@@ -24,7 +24,8 @@ import { PackDataService } from './pack-data.service';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './auth.guard';
 import { TokenInterceptorService } from './token-interceptor.service';
-import { MatChipInput } from '@angular/material';
+import { NgxQRCodeModule } from 'ngx-qrcode2';
+import { PasswordResetComponent } from './password-reset/password-reset.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { MatChipInput } from '@angular/material';
     EnrollDetailComponent,
     RegisterComponent,
     LoginComponent,
+    PasswordResetComponent,
   ],
   imports: [
     BrowserModule,
@@ -46,6 +48,7 @@ import { MatChipInput } from '@angular/material';
     FormsModule,
     BrowserAnimationsModule,
     MaterialModule,
+    NgxQRCodeModule
   ],
   providers: [
     EnrollmentService,

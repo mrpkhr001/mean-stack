@@ -5,11 +5,13 @@ const jwt = require('jsonwebtoken');
 const uuid = require('uuid-random');
 
 const TOKEN = require('./verify-token');
+const SECRET_TOKEN = require('./secret-token');
 const password = require('./password');
 const EnrollNode = require('../models/enroll-node');
 const Pack = require('../models/pack');
 const EnrollCompany = require('../models/enroll-company');
 const RegisterUser = require('../models/register-user');
+const UserSecret = require('../models/user-secret');
 
 const DATABASE_URL = process.env.DATABASE_URL || "mongodb://opstinuum:opstinuum@localhost:27017/opstinuum?retryWrites=true&w=majority";
 
@@ -50,6 +52,64 @@ router.get('/', TOKEN.verifyToken, (req, res ) => {
 
 router.get('/getUserRole', TOKEN.verifyToken, (req, res) => {
     return res.status(200).json({role: req.role});
+})
+
+router.get('/getUserId', TOKEN.verifyToken, (req, res) => {
+    return res.status(200).json({userId: req.userId});
+})
+
+router.post('/validateToken', TOKEN.verifyToken, (req, res) => {
+
+    //find user id
+    userId = req.userId
+
+    UserSecret.findOne({_id: userId}, function (error, storedSecret) {
+        if (error) {
+            console.log(error);
+            res.status(500).json(error);
+        } else {
+            if (typeof storedSecret === 'undefined' || !storedSecret) {
+                return res.status(500).json({error: "Token not found in database"});
+            } else {
+                isTokenValid = SECRET_TOKEN.verifySecretToken(storedSecret.secret, req.body.token);
+                return res.status(200).json({isValid: isTokenValid});                
+            }
+        }
+    })
+})
+
+router.get('/getUserSecret', TOKEN.verifyToken, (req, res) => {
+
+    //find user id
+    userId = req.userId
+
+    UserSecret.findOne({_id: userId}, function (error, storedSecret) {
+        if (error) {
+            console.log(error);
+            res.status(500).json(error);
+        } else {
+            if (typeof storedSecret === 'undefined' || !storedSecret) {
+                //generate secret
+                userSecret = SECRET_TOKEN.generateSecret();
+                newUserSecret = new UserSecret();
+                newUserSecret._id = userId
+                newUserSecret.secret = userSecret
+                
+                newUserSecret.save(function(err, inserted) {
+
+                    if (err) {
+                        console.log('Unable to save the secret');
+                        console.log(err);
+                    } else {
+                        return res.status(200).json({secret: userSecret});
+                    }
+                });
+                
+            } else {
+                return res.status(200).json({secret: storedSecret.secret});
+            }
+        }
+    })
 })
 
 router.get('/enroll/:id', TOKEN.verifyToken, (req, res) => {
