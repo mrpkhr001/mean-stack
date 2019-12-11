@@ -7,6 +7,7 @@ export class RegisterUser {
     _id: string;
     name: string;
     password: string;
+    confirmPassword: string;
     enrollmentSecret: string;
     isAdmin: Boolean;
 };

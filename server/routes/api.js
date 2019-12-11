@@ -272,20 +272,20 @@ router.route('/register').post((req, res) => {
 
         if (error) {
             console.log('Error finding the enrolled company');
-            res.status(500).json(error);
+            return res.status(500).json(error);
         } else if ((typeof enrollCompany !== 'undefined' && enrollCompany) || req.body.isAdmin) {
             
             registerUser.save(function(err, inserted) {
                 if (err) {
                     console.log('Unable to register the User');
-                    res.status(500).json(err);
+                    return res.status(500).json(err);
                 } else {
-                    res.status(200).send("Successfully registered the user");
+                    return res.status(200).json({_id: inserted._id, name: inserted.name});
                 }
             });
 
         } else {
-            res.status(404).json({"message" : "No organization enrolled with this enrolled secret"});
+            return res.status(404).json({"message" : "No organization enrolled with this enrolled secret"});
         }
     });
 })

@@ -7,7 +7,9 @@ import { RegisterService } from './register.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'opstinuum';
+  title = 'opstinuum'
+  errorMsg = ""
+  isAdmin = false
 
   constructor(private _registerSerice: RegisterService) {}
 

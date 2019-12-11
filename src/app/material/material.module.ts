@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 
 import {
+
   MatMenuModule,
   MatToolbarModule,
   MatIconModule,
@@ -19,6 +20,7 @@ import {
   MatChipsModule,
   MatSlideToggleModule,
   MatStepperModule,
+  MatDialogModule
 
 } from '@angular/material';
 
@@ -26,6 +28,7 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 const MaterialComponents = [
+
   MatButtonModule,
   MatMenuModule,
   MatToolbarModule,
@@ -46,7 +49,9 @@ const MaterialComponents = [
   FormsModule,
   MatChipsModule,
   MatSlideToggleModule,
-  MatStepperModule
+  MatStepperModule,
+  MatDialogModule
+  
 ]
 
 @NgModule({

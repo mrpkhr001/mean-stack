@@ -14,17 +14,20 @@ export class PasswordResetComponent implements OnInit {
   secret = ""
   errorMsg = ""
   token = ""
-  image = ""
+  image = "https://www.canuminfotech.com/img/logo.png"
+  issuer = "www.canuminfotech.com"
 
-  value = "otpauth://totp/www.canuminfotech.com:userId?secret=secretkey&algorithm=SHA1&digits=6&period=60&image=https%3A%2F%2Fwww.canuminfotech.com%2Fimg%2Flogo.png"
+  value = "otpauth://totp/[issuer]:[account]?secret=[secret]&algorithm=SHA1&digits=6&period=60&image=[image]"
   
   constructor(private _registerService: RegisterService) {}
 
   ngOnInit() {
 
     this.requestDataFromMultipleSources().subscribe(responseList => {
-      this.value = this.value.replace("userId", responseList[0].userId.replace("@", "%40"));
-      this.value = this.value.replace("secretkey", responseList[1].secret);
+      this.value = this.value.replace("[account]", encodeURIComponent(responseList[0].userId));
+      this.value = this.value.replace("[secret]", responseList[1].secret);
+      this.value = this.value.replace("[issuer]", encodeURIComponent(this.issuer));
+      this.value = this.value.replace("[image]", encodeURIComponent(this.image));
     });    
   }
   
@@ -48,6 +51,9 @@ export class PasswordResetComponent implements OnInit {
     return this._registerService.validateToken(this.token).subscribe(
       response => {
         console.log("Response : " + response)
+        if (response.isValid === true) {
+          
+        }
       },
       err => {
         console.log("Error : " + err)

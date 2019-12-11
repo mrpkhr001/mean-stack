@@ -10,7 +10,6 @@
 
         <mat-form-field class="example-full-width">
           <input matInput type="email" placeholder="Enter your email" formControlName="_id" required>
-          <mat-hint>Email id used while registration</mat-hint>
           <mat-error>
             {{errors._id}}
           </mat-error>
@@ -22,7 +21,6 @@
                   [attr.aria-pressed]="hide">
             <mat-icon>{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
           </button>
-          <mat-hint>Password used while registration</mat-hint>
           <mat-error>
             {{errors.password}}
           </mat-error>
