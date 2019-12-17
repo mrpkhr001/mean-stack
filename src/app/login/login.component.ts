@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
   constructor(private _registerService : RegisterService, private _router: Router, private _formBuilder: FormBuilder) {}
 
   ngOnInit() {
-    localStorage.removeItem('token');
+    sessionStorage.removeItem('token');
     this.createForm();
   }
 
@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
     let registration = new RegisterUser(this.loginForm.value);
     this._registerService.doUserLogin(registration).subscribe(
       response => {
-        localStorage.setItem('token', response.token)
+        sessionStorage.setItem('token', response.token)
         this._router.navigate(['/enroll']);
       },
       err => {

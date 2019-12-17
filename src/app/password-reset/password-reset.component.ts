@@ -9,6 +9,7 @@ import { Observable, forkJoin } from 'rxjs';
 })
 export class PasswordResetComponent implements OnInit {
 
+  setupValidationRequired=true
   isLinear = true;
   userId = ""
   secret = ""

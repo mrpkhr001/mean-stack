@@ -52,15 +52,15 @@ export class RegisterService {
   }
 
   loggedInUser() {
-    return !!localStorage.getItem('token');
+    return !!sessionStorage.getItem('token');
   }
 
   getToken() {
-    return localStorage.getItem('token');
+    return sessionStorage.getItem('token');
   }
 
   logoutUser() {
-    localStorage.removeItem('token');
+    sessionStorage.removeItem('token');
     this._router.navigate(["login"])
   }
 

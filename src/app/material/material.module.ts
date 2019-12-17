@@ -20,8 +20,9 @@ import {
   MatChipsModule,
   MatSlideToggleModule,
   MatStepperModule,
-  MatDialogModule
-
+  MatDialogModule,
+  MatSidenavModule,
+  
 } from '@angular/material';
 
 import {DragDropModule} from '@angular/cdk/drag-drop';
@@ -50,7 +51,8 @@ const MaterialComponents = [
   MatChipsModule,
   MatSlideToggleModule,
   MatStepperModule,
-  MatDialogModule
+  MatDialogModule,
+  MatSidenavModule,
   
 ]
 
