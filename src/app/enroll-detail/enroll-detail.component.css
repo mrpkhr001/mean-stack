@@ -60,3 +60,18 @@ table {
 .example-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
+
+#wrapper{
+  display:flex;
+  width:100%;
+}
+#wLeft{
+  width:20%;
+  border-right-style: groove;
+  border-right-color: coral;
+  border-right-width: 1px;
+}
+
+#wRight{
+  width:80%;
+}

@@ -26,6 +26,8 @@ import { AuthGuard } from './auth.guard';
 import { TokenInterceptorService } from './token-interceptor.service';
 import { NgxQRCodeModule } from 'ngx-qrcode2';
 import { PasswordResetComponent } from './password-reset/password-reset.component';
+import { CompanyUpdateComponent } from './company-update/company-update.component';
+import { PasswordResetSetupComponent } from './password-reset-setup/password-reset-setup.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +41,8 @@ import { PasswordResetComponent } from './password-reset/password-reset.componen
     RegisterComponent,
     LoginComponent,
     PasswordResetComponent,
+    CompanyUpdateComponent,
+    PasswordResetSetupComponent,
   ],
   imports: [
     BrowserModule,

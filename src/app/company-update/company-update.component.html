@@ -1,0 +1,19 @@
+<form #enrollCompanyForm="ngForm" (ngSubmit)="updateEnrolledCompany()">
+  <mat-form-field class="full-width">
+    <input matInput placeholder="Company Name" [(ngModel)]="enrolledCompany.companyName" name="companyName">
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <input matInput placeholder="Company Address" [(ngModel)]="enrolledCompany.companyAddress" name="address">
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <input matInput placeholder="Country" [(ngModel)]="enrolledCompany.country" name="country">
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <input matInput placeholder="Phone" [(ngModel)]="enrolledCompany.phone" name="phone">
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <input matInput placeholder="Website" [(ngModel)]="enrolledCompany.website" name="website">
+  </mat-form-field>
+  <br/>
+  <button mat-raised-button class="submit-btn" type="submit">Update</button>
+</form>
