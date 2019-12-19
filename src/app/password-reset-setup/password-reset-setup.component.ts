@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatRadioChange, MatRadioButton } from '@angular/material';
 
 @Component({
   selector: 'app-password-reset-setup',
@@ -7,9 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PasswordResetSetupComponent implements OnInit {
 
+  passwordResetAuthentication: string = "openFTPAppAuthentication"
+
   constructor() { }
 
   ngOnInit() {
   }
+
+  updatePasswordResetService() {
+    console.log(this.passwordResetAuthentication)
+  }
+
+  onChange(mrChange: MatRadioChange) {
+    this.passwordResetAuthentication = mrChange.value
+ } 
 
 }
