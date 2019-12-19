@@ -28,6 +28,7 @@ import { NgxQRCodeModule } from 'ngx-qrcode2';
 import { PasswordResetComponent } from './password-reset/password-reset.component';
 import { CompanyUpdateComponent } from './company-update/company-update.component';
 import { PasswordResetSetupComponent } from './password-reset-setup/password-reset-setup.component';
+import { PasswordResetService } from './password-reset.service';
 
 @NgModule({
   declarations: [
@@ -61,6 +62,7 @@ import { PasswordResetSetupComponent } from './password-reset-setup/password-res
     NodePackService,
     RegisterService,
     PackDataService,
+    PasswordResetService,
     AuthGuard,
     {
       provide: HTTP_INTERCEPTORS,

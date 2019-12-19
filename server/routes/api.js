@@ -9,6 +9,7 @@ const SECRET_TOKEN = require('./secret-token');
 const password = require('./password');
 const EnrollNode = require('../models/enroll-node');
 const Pack = require('../models/pack');
+const OrganizationService = require('../models/organization-services');
 const EnrollCompany = require('../models/enroll-company');
 const RegisterUser = require('../models/register-user');
 const UserSecret = require('../models/user-secret');
@@ -140,6 +141,38 @@ router.post('/pack', TOKEN.verifyToken, (req, res) => {
             res.json(inserted);
         }
     });
+})
+
+router.post('/password-reset-setup', TOKEN.verifyToken, (req, res) => {
+    var organizationService = new OrganizationService();
+
+    organizationService._id = req.body._id;
+    organizationService.serviceType = req.body.serviceType;
+    organizationService.data = req.body.data;
+
+    organizationService.remove({_id: req.body._id, serviceType: req.body.serviceType});
+    organizationService.save(function(err, inserted) {
+
+        if (err) {
+            console.log('Unable to save the Organization Service');
+            console.log(err);
+            res.status(500).json(err);
+        } else {
+            res.status(200).json(inserted);
+        }
+    });
+})
+
+router.get('/password-reset-setup/:id/:serviceType', TOKEN.verifyToken, (req, res) => {
+
+    OrganizationService.findOne({_id: req.params.id, serviceType: req.params.serviceType}, function (error, organizationService) {
+        if (error) {
+            console.log(error);
+            res.status(500).json(error);
+        } else {
+            res.status(200).json(organizationService);
+        }
+    })
 })
 
 router.post('/enroll-company', TOKEN.verifyToken, (req, res) => {

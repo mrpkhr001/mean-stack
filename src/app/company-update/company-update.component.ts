@@ -6,8 +6,6 @@ import { ActivatedRoute } from '@angular/router';
 import { CompanyEnrollmentService } from '../company-enrollment.service';
 import { Observable, forkJoin } from 'rxjs';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { async } from '@angular/core/testing';
-import { Route } from '@angular/compiler/src/core';
 
 @Component({
   selector: 'app-company-update',
@@ -30,7 +28,6 @@ export class CompanyUpdateComponent implements OnInit {
   ngOnInit() {
 
     this.id = this.route.parent.snapshot.params['id']
-    console.log("id : " + this.id)
     
     this.requestDataFromMultipleSources().subscribe(responseList => {
       this.appliedPacks = responseList[0].packs;
