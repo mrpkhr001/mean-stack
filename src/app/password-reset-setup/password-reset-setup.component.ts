@@ -27,36 +27,32 @@ export class PasswordResetSetupComponent implements OnInit {
 
   constructor(private _router: Router, private route:ActivatedRoute, private passwordResetService: PasswordResetService) { }
 
-  ngOnInit() {
+  async ngOnInit() {
+
+    this.showClassGrp = new FormGroup({
+
+      'openFTPAppAuthentication': new FormControl(this.openFTPAppAuthentication),
+      'googleAppAuthentication': new FormControl(this.googleAppAuthentication),
+      'smsAuthentication': new FormControl(this.smsAuthentication),
+      'whatsAppAuthentication': new FormControl(this.whatsAppAuthentication),
+    })
 
     this.id = this.route.parent.snapshot.params['id']
-    this.passwordResetService.getPasswordResetSetupConfig(this.id, this.serviceType)
-    .subscribe(data => {
+    const data = await this.passwordResetService.getPasswordResetSetupConfig(this.id, this.serviceType).toPromise()
+    
+    this.passwordResetAuth = data
+    this.openFTPAppAuthentication = this.passwordResetAuth.data.indexOf("openFTPAppAuthentication") >= 0
+    this.googleAppAuthentication = this.passwordResetAuth.data.indexOf("googleAppAuthentication") >= 0
+    this.smsAuthentication = this.passwordResetAuth.data.indexOf("smsAuthentication") >= 0
+    this.whatsAppAuthentication = this.passwordResetAuth.data.indexOf("whatsAppAuthentication") >= 0
 
-      this.passwordResetAuth = data
-      this.openFTPAppAuthentication = this.passwordResetAuth.data.indexOf("openFTPAppAuthentication") >= 0
-      this.googleAppAuthentication = this.passwordResetAuth.data.indexOf("googleAppAuthentication") >= 0
-      this.smsAuthentication = this.passwordResetAuth.data.indexOf("smsAuthentication") >= 0
-      this.whatsAppAuthentication = this.passwordResetAuth.data.indexOf("whatsAppAuthentication") >= 0
+    this.showClassGrp = new FormGroup({
 
-      this.showClassGrp = new FormGroup({
-
-        'openFTPAppAuthentication': new FormControl(this.openFTPAppAuthentication),
-        'googleAppAuthentication': new FormControl(this.googleAppAuthentication),
-        'smsAuthentication': new FormControl(this.smsAuthentication),
-        'whatsAppAuthentication': new FormControl(this.whatsAppAuthentication),
-  
-      });
-
-    },
-      error => {
-        if (error instanceof HttpErrorResponse) {
-          if (error.status == 401) {
-            this._router.navigate(['/login'])
-          }
-        }
-        this.errorMsg = error
-      });
+      'openFTPAppAuthentication': new FormControl(this.openFTPAppAuthentication),
+      'googleAppAuthentication': new FormControl(this.googleAppAuthentication),
+      'smsAuthentication': new FormControl(this.smsAuthentication),
+      'whatsAppAuthentication': new FormControl(this.whatsAppAuthentication),
+    })
 
   }
 

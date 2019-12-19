@@ -15,7 +15,7 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/dr
 export class CompanyUpdateComponent implements OnInit {
 
   public id: string;
-  public enrolledCompany: ICompanyEnrollment;
+  public enrolledCompany: ICompanyEnrollment = new ICompanyEnrollment();
   public errorMsg;
 
   appliedPacks: string[] = [];
@@ -23,7 +23,6 @@ export class CompanyUpdateComponent implements OnInit {
   allPacks: IPack[] = [];
 
   constructor(private _packService: PackService, private route:ActivatedRoute, private _injector: Injector, private _companyEnrollmentService: CompanyEnrollmentService) { }
-
 
   ngOnInit() {
 
