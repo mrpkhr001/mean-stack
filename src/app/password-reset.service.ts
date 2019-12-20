@@ -25,7 +25,6 @@ export class PasswordResetService {
   }
 
   getPasswordResetSetupConfig(_id: string, serviceType: string): Observable<IOrganizationServiceConfig>{
-    console.log("Sending request ...")
     return this.http.get<IOrganizationServiceConfig>(this._url.concat(_id).concat("/").concat(serviceType));
   }
 

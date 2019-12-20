@@ -67,11 +67,10 @@ table {
 }
 #wLeft{
   width:20%;
-  border-right-style: groove;
-  border-right-color: coral;
-  border-right-width: 1px;
+  background-color: azure;
 }
 
 #wRight{
   width:80%;
+  background-color: cornsilk;
 }
