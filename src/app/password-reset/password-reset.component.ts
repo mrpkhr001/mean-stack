@@ -4,6 +4,7 @@ import { PasswordResetService } from '../password-reset.service';
 import { IOrganizationId } from 'src/model/organization';
 import { IOrganizationServiceConfig } from 'src/model/organization-service-config';
 import { Router } from '@angular/router';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
 
 @Component({
   selector: 'app-password-reset',
@@ -24,7 +25,7 @@ export class PasswordResetComponent implements OnInit {
   authenticationMethod: string
 
 
-  constructor(private _router: Router, private _resgisterService: RegisterService, private _passwordResetService: PasswordResetService) {}
+  constructor(private snackBar: MatSnackBar, private _router: Router, private _resgisterService: RegisterService, private _passwordResetService: PasswordResetService) {}
 
   async ngOnInit() {
 
@@ -53,7 +54,12 @@ export class PasswordResetComponent implements OnInit {
     } else if (this.authenticationMethod === "whatsAppAuthentication") {
       this._router.navigate(["whatsAppAuthentication"])
     } else {
-      console.log("Select one of the Authentication method to proceed")
+      let config = new MatSnackBarConfig();
+      config.duration = 3000
+      config.panelClass = ['mat-toolbar', 'mat-warn']
+      config.verticalPosition = 'top'
+      config.horizontalPosition = 'center'
+      this.snackBar.open("Select one of the Authentication method to proceed", null, config)
     }
 
   }

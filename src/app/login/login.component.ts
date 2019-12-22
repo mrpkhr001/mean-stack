@@ -5,7 +5,6 @@ import {Validators, FormGroup, FormBuilder} from '@angular/forms';
 
 import { RegisterService } from '../register.service';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
-import { InformationDialogComponent } from '../information-dialog/information-dialog.component';
 
 @Component({
   selector: 'app-login',

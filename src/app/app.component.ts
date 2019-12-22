@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RegisterService } from './register.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +12,7 @@ export class AppComponent implements OnInit{
   errorMsg = ""
   isAdmin = false
 
-  constructor(private _registerService: RegisterService) {}
+  constructor(private _router: Router, private _registerService: RegisterService) {}
 
   isUserLoggedIn() {
     return this._registerService.loggedInUser()
@@ -35,7 +36,11 @@ export class AppComponent implements OnInit{
         }
       }
   },
-    error => this.errorMsg = error
+    error => {this.errorMsg = error
+      this._registerService.logoutUser()
+    this._router.navigate(['/login']);
+  }
+
   );
 
   }
