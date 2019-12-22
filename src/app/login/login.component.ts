@@ -4,6 +4,8 @@ import {Router} from '@angular/router';
 import {Validators, FormGroup, FormBuilder} from '@angular/forms';
 
 import { RegisterService } from '../register.service';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
+import { InformationDialogComponent } from '../information-dialog/information-dialog.component';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +17,7 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   hide = false ;
 
-  constructor(private _registerService : RegisterService, private _router: Router, private _formBuilder: FormBuilder) {}
+  constructor(private snackBar: MatSnackBar, private _registerService : RegisterService, private _router: Router, private _formBuilder: FormBuilder) {}
 
   ngOnInit() {
     sessionStorage.removeItem('token');
@@ -31,13 +33,11 @@ export class LoginComponent implements OnInit {
     
   getEmailErrorMessage() {
     return this.loginForm.get("_id").hasError('required') ? 'You must enter email' :
-    this.loginForm.get("password").hasError('email') ? 'Not a valid email' :
-            '';
+    this.loginForm.get("password").hasError('email') ? 'Not a valid email' :'';
   }
 
   getPasswordErrorMessage() {
-    return this.loginForm.get("_id").hasError('required') ? 'You must enter password' :
-            '';
+    return this.loginForm.get("_id").hasError('required') ? 'You must enter password' :'';
   }
 
   doUserLogin() {
@@ -45,9 +45,21 @@ export class LoginComponent implements OnInit {
     this._registerService.doUserLogin(registration).subscribe(
       response => {
         sessionStorage.setItem('token', response.token)
-        this._router.navigate(['/enroll']);
+        let config = new MatSnackBarConfig();
+        config.duration = 3000
+        config.panelClass = ['mat-toolbar', 'mat-primary']
+        config.verticalPosition = 'top'
+        config.horizontalPosition = 'center'
+        this.snackBar.open("Login Successful", null, config)
+        this._router.navigate(['/home']);
       },
       err => {
+        let config = new MatSnackBarConfig();
+        config.duration = 3000
+        config.panelClass = ['mat-toolbar', 'mat-warn']
+        config.verticalPosition = 'top'
+        config.horizontalPosition = 'center'
+        this.snackBar.open("Incorrect Username or Password", null, config)
       }
     );
   }

@@ -59,6 +59,10 @@ router.get('/getUserId', TOKEN.verifyToken, (req, res) => {
     return res.status(200).json({userId: req.userId});
 })
 
+router.get('/getOrgnizationId', TOKEN.verifyToken, (req, res) => {
+    return res.status(200).json({orgnizationId: req.enrollmentSecret});
+})
+
 router.post('/validateToken', TOKEN.verifyToken, (req, res) => {
 
     //find user id

@@ -2,14 +2,15 @@
     <mat-toolbar>
         <mat-toolbar-row>
             <span class="menu-spacer"></span>
+            <a mat-button [routerLink]="'/home'">Opstinuum</a>
             <a mat-button *ngIf="isAdmin && isUserLoggedIn()" [routerLink]="'/enroll'">Organizations</a>
             <a mat-button *ngIf="isAdmin && isUserLoggedIn()" [routerLink]="'/packs'">Packs Management</a>
+            <a mat-button *ngIf="!isAdmin && isUserLoggedIn()" [routerLink]="'/password-reset'">Password Reset</a>
             <!-- <a mat-button *ngIf="isUserLoggedIn()" [routerLink]="'/issues'">Issues & Resolutions</a>
             <a mat-button *ngIf="isUserLoggedIn()" [routerLink]="'/nodes'">Nodes</a> -->
             <!-- This fills the remaining space of the current row -->
             <span class="example-fill-remaining-space"></span>
-            <a mat-button *ngIf="!isAdmin && isUserLoggedIn()" [routerLink]="'/my-organisation'">My Organization</a>
-            <a mat-button *ngIf="!isAdmin && isUserLoggedIn()" [routerLink]="'/password-reset'">Password Reset</a>
+            <a mat-button *ngIf="!isAdmin && isUserLoggedIn()" [routerLink]="'/my-organisation'">My Profile</a>
             <a mat-button *ngIf="!isUserLoggedIn()" [routerLink]="'/login'">Login</a>
             <a mat-button *ngIf="!isUserLoggedIn()" [routerLink]="'/register'">Register</a>    
             <a mat-button *ngIf="isUserLoggedIn()" (click)="logoutUser()" [routerLink]="'/logout'">Logout</a>    

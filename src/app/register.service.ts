@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 import { RegisterUser } from 'src/model/register';
-import { Router } from '@angular/router';
+import { IOrganizationId } from 'src/model/organization';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,7 @@ export class RegisterService {
   private _user_id_url: string = "api/getUserId";
   private _user_secret_url: string = "api/getUserSecret";
   private _validate_token_url: string = "api/validateToken";
+  private _organization_id_url: string = "api/getOrgnizationId"
 
   private httpOptions = {
     headers: new HttpHeaders({
@@ -36,6 +38,10 @@ export class RegisterService {
 
   getUserRole() {
     return this.http.get<any>(this._user_role_url, this.httpOptions);
+  }
+
+  getOrganizationId() {
+    return this.http.get<IOrganizationId>(this._organization_id_url, this.httpOptions);
   }
 
   getUserId() {

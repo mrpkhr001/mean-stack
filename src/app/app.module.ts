@@ -29,6 +29,12 @@ import { PasswordResetComponent } from './password-reset/password-reset.componen
 import { CompanyUpdateComponent } from './company-update/company-update.component';
 import { PasswordResetSetupComponent } from './password-reset-setup/password-reset-setup.component';
 import { PasswordResetService } from './password-reset.service';
+import { PasswordResetGoogleComponent } from './password-reset-google/password-reset-google.component';
+import { PasswordResetFreeotpComponent } from './password-reset-freeotp/password-reset-freeotp.component';
+import { PasswordResetPhonesmsComponent } from './password-reset-phonesms/password-reset-phonesms.component';
+import { PasswordResetWhatsappComponent } from './password-reset-whatsapp/password-reset-whatsapp.component';
+import { HomeComponent } from './home/home.component';
+import { InformationDialogComponent } from './information-dialog/information-dialog.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +50,14 @@ import { PasswordResetService } from './password-reset.service';
     PasswordResetComponent,
     CompanyUpdateComponent,
     PasswordResetSetupComponent,
+    PasswordResetGoogleComponent,
+    PasswordResetFreeotpComponent,
+    PasswordResetPhonesmsComponent,
+    PasswordResetWhatsappComponent,
+    HomeComponent,
+    InformationDialogComponent,
   ],
+  entryComponents: [InformationDialogComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

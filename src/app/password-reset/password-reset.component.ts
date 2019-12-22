@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { RegisterService } from '../register.service';
-import { Observable, forkJoin } from 'rxjs';
+import { PasswordResetService } from '../password-reset.service';
+import { IOrganizationId } from 'src/model/organization';
+import { IOrganizationServiceConfig } from 'src/model/organization-service-config';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-password-reset',
@@ -10,57 +13,50 @@ import { Observable, forkJoin } from 'rxjs';
 export class PasswordResetComponent implements OnInit {
 
   setupValidationRequired=true
-  isLinear = true;
-  userId = ""
-  secret = ""
-  errorMsg = ""
-  token = ""
-  image = "https://www.canuminfotech.com/img/logo.png"
-  issuer = "www.canuminfotech.com"
+  serviceType:string = "Password-Reset-Authentication"
+  orgnizationData: IOrganizationId = new IOrganizationId()
+  passwordResetAuth = new IOrganizationServiceConfig()
 
-  value = "otpauth://totp/[issuer]:[account]?secret=[secret]&algorithm=SHA1&digits=6&period=60&image=[image]"
-  
-  constructor(private _registerService: RegisterService) {}
+  freeOtpAppAuthentication = false
+  googleAppAuthentication = false
+  smsAuthentication = false
+  whatsAppAuthentication = false
+  authenticationMethod: string
 
-  ngOnInit() {
 
-    this.requestDataFromMultipleSources().subscribe(responseList => {
-      this.value = this.value.replace("[account]", encodeURIComponent(responseList[0].userId));
-      this.value = this.value.replace("[secret]", responseList[1].secret);
-      this.value = this.value.replace("[issuer]", encodeURIComponent(this.issuer));
-      this.value = this.value.replace("[image]", encodeURIComponent(this.image));
-    });    
+  constructor(private _router: Router, private _resgisterService: RegisterService, private _passwordResetService: PasswordResetService) {}
+
+  async ngOnInit() {
+
+    const orgData = await this._resgisterService.getOrganizationId().toPromise()
+    this.orgnizationData = orgData
+
+    const serviceData = await this._passwordResetService.getPasswordResetSetupConfig(this.orgnizationData.orgnizationId, this.serviceType).toPromise()
+
+    this.passwordResetAuth = serviceData
+    this.freeOtpAppAuthentication = this.passwordResetAuth.data.indexOf("freeOtpAppAuthentication") >= 0
+    this.googleAppAuthentication = this.passwordResetAuth.data.indexOf("googleAppAuthentication") >= 0
+    this.smsAuthentication = this.passwordResetAuth.data.indexOf("smsAuthentication") >= 0
+    this.whatsAppAuthentication = this.passwordResetAuth.data.indexOf("whatsAppAuthentication") >= 0
+
+  }
+
+  preferredAuthenticationMethod() {
+    console.log(this.authenticationMethod)
+
+    if (this.authenticationMethod === "freeOtpAppAuthentication") {
+      this._router.navigate(["freeOtpAppAuthentication"])
+    } else if (this.authenticationMethod === "googleAppAuthentication") {
+      this._router.navigate(["googleAppAuthentication"])
+    } else if (this.authenticationMethod === "smsAuthentication") {
+      this._router.navigate(["smsAuthentication"])
+    } else if (this.authenticationMethod === "whatsAppAuthentication") {
+      this._router.navigate(["whatsAppAuthentication"])
+    } else {
+      console.log("Select one of the Authentication method to proceed")
+    }
+
   }
   
-  public requestDataFromMultipleSources(): Observable<any[]> {
-
-    let response1 = this.getUserId();
-    let response2 = this.getSecret();
-
-    return forkJoin([response1, response2]);
-  }
-
-  public getUserId() {
-    return this._registerService.getUserId();
-  }
-
-  public getSecret() {
-    return this._registerService.getSecret();
-  }
-
-  public validateToken() {
-    return this._registerService.validateToken(this.token).subscribe(
-      response => {
-        console.log("Response : " + response)
-        if (response.isValid === true) {
-          
-        }
-      },
-      err => {
-        console.log("Error : " + err)
-      }
-    );;
-  }
-
 
 }

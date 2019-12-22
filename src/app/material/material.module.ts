@@ -21,7 +21,8 @@ import {
   MatSlideToggleModule,
   MatStepperModule,
   MatDialogModule,
-  MatSidenavModule
+  MatSidenavModule,
+  MatSnackBarModule
   
 } from '@angular/material';
 
@@ -52,7 +53,8 @@ const MaterialComponents = [
   MatSlideToggleModule,
   MatStepperModule,
   MatDialogModule,
-  MatSidenavModule
+  MatSidenavModule,
+  MatSnackBarModule
   
 ]
 
