@@ -29,6 +29,8 @@ export class PasswordResetComponent implements OnInit {
 
   async ngOnInit() {
 
+    const validationMethodData = this._passwordResetService.getValidationMethod().toPromise()
+
     const orgData = await this._resgisterService.getOrganizationId().toPromise()
     this.orgnizationData = orgData
 

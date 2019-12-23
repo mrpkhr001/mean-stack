@@ -4,6 +4,10 @@ import { Observable, forkJoin } from 'rxjs';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
 import { Router } from '@angular/router';
 
+import {ValidationMethod} from '../../model/validation-method'
+import { PasswordResetService } from '../password-reset.service';
+import { error } from 'protractor';
+
 @Component({
   selector: 'app-password-reset-freeotp',
   templateUrl: './password-reset-freeotp.component.html',
@@ -11,6 +15,7 @@ import { Router } from '@angular/router';
 })
 export class PasswordResetFreeotpComponent implements OnInit {
 
+  validationMethod:ValidationMethod = new ValidationMethod()
   setupValidationRequired=true
   isLinear = true;
   userId = ""
@@ -22,7 +27,7 @@ export class PasswordResetFreeotpComponent implements OnInit {
 
   value = "otpauth://totp/[issuer]:[account]?secret=[secret]&algorithm=SHA1&digits=6&period=60&image=[image]"
   
-  constructor(private _router: Router, private snackBar: MatSnackBar, private _registerService: RegisterService) {}
+  constructor(private _router: Router, private snackBar: MatSnackBar, private _registerService: RegisterService, private _passwordResetService: PasswordResetService) {}
 
   ngOnInit() {
 
@@ -61,7 +66,10 @@ export class PasswordResetFreeotpComponent implements OnInit {
           config.verticalPosition = 'top'
           config.horizontalPosition = 'center'
           this.snackBar.open("FreeOTP setup Successful", null, config)
-          this._router.navigate(['/home']);
+          this.validationMethod.validationMethod = 'freeOtpAppAuthentication'
+          this._passwordResetService.setValidationMethod(this.validationMethod)
+                  .subscribe(response => console.log(response), error => console.log(error))
+          this._router.navigate(['/password-reset']);
 
         } else {
 

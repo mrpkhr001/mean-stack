@@ -2,13 +2,15 @@ import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { IOrganizationServiceConfig } from 'src/model/organization-service-config';
 import { Observable } from 'rxjs';
+import { ValidationMethod } from 'src/model/validation-method';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PasswordResetService {
 
-  private _url: string = "api/password-reset-setup/";
+  private _password_reset_url: string = "api/password-reset-setup/";
+  private _validation_url: string = "api/validation-method/";
 
   private httpOptions = {
     headers: new HttpHeaders({
@@ -20,12 +22,21 @@ export class PasswordResetService {
 
   updatePasswordResetSetup(passwordResetConfig: IOrganizationServiceConfig): Observable<IOrganizationServiceConfig>{
     const body = JSON.stringify(passwordResetConfig);
-    console.log(body);
-    return this.http.post<IOrganizationServiceConfig>(this._url, body, this.httpOptions);
+    return this.http.post<IOrganizationServiceConfig>(this._password_reset_url, body, this.httpOptions);
   }
 
   getPasswordResetSetupConfig(_id: string, serviceType: string): Observable<IOrganizationServiceConfig>{
-    return this.http.get<IOrganizationServiceConfig>(this._url.concat(_id).concat("/").concat(serviceType));
+    return this.http.get<IOrganizationServiceConfig>(this._password_reset_url.concat(_id).concat("/").concat(serviceType));
+  }
+
+  setValidationMethod(validationMethod): Observable<ValidationMethod>{
+    const body = JSON.stringify(validationMethod);
+    console.log(body);
+    return this.http.post<ValidationMethod>(this._validation_url, body, this.httpOptions);
+  }
+
+  getValidationMethod() : Observable<ValidationMethod>{
+    return this.http.get<ValidationMethod>(this._validation_url);
   }
 
 }
