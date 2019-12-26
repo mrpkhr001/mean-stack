@@ -6,7 +6,6 @@ import { Router } from '@angular/router';
 
 import {ValidationMethod} from '../../model/validation-method'
 import { PasswordResetService } from '../password-reset.service';
-import { error } from 'protractor';
 
 @Component({
   selector: 'app-password-reset-freeotp',
@@ -67,6 +66,7 @@ export class PasswordResetFreeotpComponent implements OnInit {
           config.horizontalPosition = 'center'
           this.snackBar.open("FreeOTP setup Successful", null, config)
           this.validationMethod.validationMethod = 'freeOtpAppAuthentication'
+          this.validationMethod.serviceType = 'Password-Reset-Authentication'
           this._passwordResetService.setValidationMethod(this.validationMethod)
                   .subscribe(response => console.log(response), error => console.log(error))
           this._router.navigate(['/password-reset']);

@@ -4,7 +4,8 @@ import { PasswordResetService } from '../password-reset.service';
 import { IOrganizationId } from 'src/model/organization';
 import { IOrganizationServiceConfig } from 'src/model/organization-service-config';
 import { Router } from '@angular/router';
-import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
+import { MatSnackBar, MatSnackBarConfig, MatStepper } from '@angular/material';
+import { ValidationMethod } from 'src/model/validation-method';
 
 @Component({
   selector: 'app-password-reset',
@@ -23,13 +24,24 @@ export class PasswordResetComponent implements OnInit {
   smsAuthentication = false
   whatsAppAuthentication = false
   authenticationMethod: string
+  validationMethod: ValidationMethod
+  isLinear = true;
 
 
   constructor(private snackBar: MatSnackBar, private _router: Router, private _resgisterService: RegisterService, private _passwordResetService: PasswordResetService) {}
 
   async ngOnInit() {
 
-    const validationMethodData = this._passwordResetService.getValidationMethod().toPromise()
+    const validationMethodData = await this._passwordResetService.getValidationMethod().toPromise()
+    this.validationMethod = validationMethodData
+
+    if (typeof this.validationMethod == 'undefined' || !this.validationMethod.serviceType) {
+      this.setupValidationRequired=true
+    } else {
+      this.setupValidationRequired=false
+    }
+
+    console.log(this.setupValidationRequired)
 
     const orgData = await this._resgisterService.getOrganizationId().toPromise()
     this.orgnizationData = orgData
@@ -64,6 +76,14 @@ export class PasswordResetComponent implements OnInit {
       this.snackBar.open("Select one of the Authentication method to proceed", null, config)
     }
 
+  }
+
+  updatePassword() {
+    
+  }
+
+  goForward(stepper: MatStepper) {
+    stepper.next()
   }
   
 

@@ -13,6 +13,7 @@ const OrganizationService = require('../models/organization-services');
 const EnrollCompany = require('../models/enroll-company');
 const RegisterUser = require('../models/register-user');
 const UserSecret = require('../models/user-secret');
+const UserService = require('../models/user-service');
 
 const DATABASE_URL = process.env.DATABASE_URL || "mongodb://opstinuum:opstinuum@localhost:27017/opstinuum?retryWrites=true&w=majority";
 
@@ -78,6 +79,48 @@ router.post('/validateToken', TOKEN.verifyToken, (req, res) => {
             } else {
                 isTokenValid = SECRET_TOKEN.verifySecretToken(storedSecret.secret, req.body.token);
                 return res.status(200).json({isValid: isTokenValid});                
+            }
+        }
+    })
+})
+
+router.post('/validation-method', TOKEN.verifyToken, (req, res) => {
+
+    //find user id
+    userId = req.userId
+    let userService = new UserService()
+    userService._id = userId
+    userService.serviceType = req.body.serviceType
+    userService.validationMethod = req.body.validationMethod
+
+
+    UserService.remove({_id: req.body._id, serviceType: req.body.serviceType});
+    userService.save(function(err, inserted) {
+
+        if (err) {
+            console.log('Unable to save the pack');
+            console.log(err);
+        } else {
+            res.status(200).json(inserted);
+        }
+    });
+
+})
+
+router.get('/validation-method', TOKEN.verifyToken, (req, res) => {
+
+    //find user id
+    userId = req.userId
+
+    UserService.findOne({_id: userId}, function (error, userService) {
+        if (error) {
+            console.log(error);
+            res.status(500).json(error);
+        } else {
+            if (typeof userService === 'undefined' || !userService) {
+                return res.status(200).json({});
+            } else {
+                return res.status(200).json(userService);                
             }
         }
     })
