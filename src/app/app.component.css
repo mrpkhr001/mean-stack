@@ -44,7 +44,7 @@ body {
 
 .box .row.footer {
   flex: 0 1 40px;
-  background-color: lightslategray;
+  background-color: #f5f5f5;
   text-align: center;
   align-items: center;
 }
