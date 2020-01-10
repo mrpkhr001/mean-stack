@@ -2,7 +2,7 @@
   "name": "opstinuum",
   "version": "0.0.0",
   "scripts": {
-    "ng": "ng",
+    "ng": "ng serve",
     "start": "node index.js",
     "heroku-postbuild": "ng build --prod",
     "build": "ng build --prod",

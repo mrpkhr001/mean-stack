@@ -1,9 +1,13 @@
-.example-form {
-  min-width: 150px;
-  max-width: 500px;
+.registration-container{
+  display: block;
+  width: 70%;
+  margin: 20px auto;
+}
+
+.registration-form {
   width: 100%;
 }
 
-.example-full-width {
+.registration-full-width {
   width: 100%;
 }

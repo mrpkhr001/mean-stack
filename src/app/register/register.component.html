@@ -1,24 +1,24 @@
-<div class="example-container">
+<div class="registration-container">
 
   <mat-divider></mat-divider>
-  <mat-card class="example-card">
-    <form class="example-form" #userRegistrationForm="ngForm" (ngSubmit)="registerUser()">
+  <mat-card class="registration-card">
+    <form class="registration-form" #userRegistrationForm="ngForm" (ngSubmit)="registerUser()">
       <mat-card-header>
         <mat-card-title>User Registration</mat-card-title>
       </mat-card-header>
       <mat-card-content>
 
-        <mat-slide-toggle class="example-margin" [checked]="registration.isAdmin" [color]="color"
+        <mat-slide-toggle class="registration-margin" [checked]="registration.isAdmin" [color]="color"
                           [(ngModel)]="registration.isAdmin" name="isAdmin">Register as Admin
         </mat-slide-toggle>
 
-        <mat-form-field class="example-full-width">
+        <mat-form-field class="registration-full-width">
           <input matInput type="email" placeholder="Email" [(ngModel)]="registration._id" name="_id">
         </mat-form-field>
-        <mat-form-field class="example-full-width">
+        <mat-form-field class="registration-full-width">
           <input matInput type="text" placeholder="Name" [(ngModel)]="registration.name" name="name">
         </mat-form-field>
-        <mat-form-field class="example-full-width">
+        <mat-form-field class="registration-full-width">
           <input matInput [type]="hide ? 'text' : 'password'" placeholder="Password" [(ngModel)]="registration.password"
                  name="password">
           <button mat-icon-button matSuffix type="button" (click)="hide = !hide" [attr.aria-label]="'Hide password'"
@@ -26,7 +26,7 @@
             <mat-icon>{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
           </button>
         </mat-form-field>
-        <mat-form-field class="example-full-width">
+        <mat-form-field class="registration-full-width">
           <input matInput [type]="hide ? 'text' : 'password'" placeholder="Confirm Password" [(ngModel)]="registration.confirmPassword"
                  name="confirmPassword">
           <button mat-icon-button matSuffix type="button" (click)="hide = !hide" [attr.aria-label]="'Hide password'"
@@ -35,7 +35,7 @@
           </button>
         </mat-form-field>
         <div *ngIf="!registration.isAdmin">
-          <mat-form-field class="example-full-width">
+          <mat-form-field class="registration-full-width">
             <input matInput type="text" placeholder="Organization Id" [(ngModel)]="registration.enrollmentSecret"
                    name="enrollmentSecret">
           </mat-form-field>
