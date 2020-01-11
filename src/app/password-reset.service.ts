@@ -3,14 +3,15 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { IOrganizationServiceConfig } from 'src/model/organization-service-config';
 import { Observable } from 'rxjs';
 import { ValidationMethod } from 'src/model/validation-method';
+import {environment} from '../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PasswordResetService {
 
-  private _password_reset_url: string = "api/password-reset-setup/";
-  private _validation_url: string = "api/validation-method/";
+  private _password_reset_url: string = `${environment.apiHostUrl}/api/password-reset-setup/`;
+  private _validation_url: string = `${environment.apiHostUrl}/api/validation-method/`;
 
   private httpOptions = {
     headers: new HttpHeaders({

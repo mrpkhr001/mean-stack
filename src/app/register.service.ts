@@ -4,26 +4,27 @@ import { Router } from '@angular/router';
 
 import { RegisterUser } from 'src/model/register';
 import { IOrganizationId } from 'src/model/organization';
+import { environment } from '../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RegisterService {
 
-  private _register_url: string = "api/register";
-  private _login_url: string = "api/login";
-  private _user_role_url: string = "api/getUserRole";
-  private _user_id_url: string = "api/getUserId";
-  private _user_secret_url: string = "api/getUserSecret";
-  private _validate_token_url: string = "api/validateToken";
-  private _organization_id_url: string = "api/getOrgnizationId"
+  private _register_url: string = `${environment.apiHostUrl}/api/register`;
+  private _login_url: string = `${environment.apiHostUrl}/api/login`;
+  private _user_role_url: string = `${environment.apiHostUrl}/api/getUserRole`;
+  private _user_id_url: string = `${environment.apiHostUrl}/api/getUserId`;
+  private _user_secret_url: string = `${environment.apiHostUrl}/api/getUserSecret`;
+  private _validate_token_url: string = `${environment.apiHostUrl}/api/validateToken`;
+  private _organization_id_url: string = `${environment.apiHostUrl}/api/getOrgnizationId`;
 
   private httpOptions = {
     headers: new HttpHeaders({
       'Content-Type':  'application/json',
     })
   };
-  
+
   constructor(private http:HttpClient, private _router: Router) { }
 
   registerUser(registerUser: RegisterUser) {

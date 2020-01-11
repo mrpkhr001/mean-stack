@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 
 import {ICompanyEnrollment} from '../model/company-enrollment';
 
+import {environment} from '../environments/environment';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -16,7 +18,7 @@ export class CompanyEnrollmentService {
     })
   };
 
-  private _url: string = "api/enroll-company/";
+  private _url: string = `${environment.apiHostUrl}/api/enroll-company/`;
 
   constructor(private http:HttpClient) { }
 
@@ -28,7 +30,7 @@ export class CompanyEnrollmentService {
   getEnrolledCompanies(): Observable<ICompanyEnrollment[]>{
     return this.http.get<ICompanyEnrollment[]>(this._url);
   }
-  
+
   getEnrolledCompany(id: string): Observable<ICompanyEnrollment>{
     return this.http.get<ICompanyEnrollment>(this._url + id);
   }

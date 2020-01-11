@@ -2,14 +2,15 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-import { IEnrollment } from '../../src/model/enrollment';
+import { IEnrollment } from '../model/enrollment';
+import {environment} from '../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EnrollmentService {
   private _url: string = "api";
-  private _url_node: string = "api/enroll/";
+  private _url_node: string = `${environment.apiHostUrl}/api/enroll/`;
 
   constructor(private http:HttpClient) { }
 

@@ -4,20 +4,21 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { CompileShallowModuleMetadata } from '@angular/compiler';
+import {environment} from '../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PackService {
 
-  private _url: string = "api/pack";
+  private _url: string = `${environment.apiHostUrl}/api/pack`;
 
   private httpOptions = {
     headers: new HttpHeaders({
       'Content-Type':  'application/json',
     })
   };
-    
+
   constructor(private http:HttpClient) { }
 
   createPack(ipack: IPack): Observable<IPack>{

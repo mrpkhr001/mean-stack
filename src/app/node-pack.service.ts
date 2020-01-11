@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { INodePacks } from 'src/model/node-packs';
 import { Observable, throwError } from 'rxjs';
+import {environment} from "../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class NodePackService {
 
-  private _url: string = "api/node-pack/";
+  private _url: string = `${environment.apiHostUrl}/api/node-pack/`;
 
   private httpOptions = {
     headers: new HttpHeaders({
