@@ -33,13 +33,15 @@ const options = {
 };
 
 mongoose.connect(DATABASE_URL, options).then(
-    () => { console.log("Connected to the database") },
-    err => { "Unable to connect to the datasbase" }
-);
+    () => { console.log("Connected to the database") } );
+
+mongoose.connection.on('error', (err) => {
+  console.error(`DB Connection error → ${err.message}`);
+});
 
 
 router.get('/', TOKEN.verifyToken, (req, res ) => {
-    
+
     EnrollNode.find({}).exec(function(err, enrollments) {
 
         if (err) {
@@ -49,7 +51,7 @@ router.get('/', TOKEN.verifyToken, (req, res ) => {
             res.json(enrollments);
         }
     })
-    
+
 })
 
 router.get('/getUserRole', TOKEN.verifyToken, (req, res) => {
@@ -78,7 +80,7 @@ router.post('/validateToken', TOKEN.verifyToken, (req, res) => {
                 return res.status(500).json({error: "Token not found in database"});
             } else {
                 isTokenValid = SECRET_TOKEN.verifySecretToken(storedSecret.secret, req.body.token);
-                return res.status(200).json({isValid: isTokenValid});                
+                return res.status(200).json({isValid: isTokenValid});
             }
         }
     })
@@ -120,7 +122,7 @@ router.get('/validation-method', TOKEN.verifyToken, (req, res) => {
             if (typeof userService === 'undefined' || !userService) {
                 return res.status(200).json({});
             } else {
-                return res.status(200).json(userService);                
+                return res.status(200).json(userService);
             }
         }
     })
@@ -142,7 +144,7 @@ router.get('/getUserSecret', TOKEN.verifyToken, (req, res) => {
                 newUserSecret = new UserSecret();
                 newUserSecret._id = userId
                 newUserSecret.secret = userSecret
-                
+
                 newUserSecret.save(function(err, inserted) {
 
                     if (err) {
@@ -152,7 +154,7 @@ router.get('/getUserSecret', TOKEN.verifyToken, (req, res) => {
                         return res.status(200).json({secret: userSecret});
                     }
                 });
-                
+
             } else {
                 return res.status(200).json({secret: storedSecret.secret});
             }
@@ -263,7 +265,7 @@ router.put('/enroll-company', TOKEN.verifyToken, (req, res) => {
     EnrollCompany.findOneAndUpdate(query, newEnrollCompany, {upsert:true}, function(err, doc){
         if (err) return res.send(500, { error: err });
         return res.json(newEnrollCompany);
-    });    
+    });
 })
 
 router.get('/enroll-company', TOKEN.verifyToken, (req, res) => {
@@ -280,7 +282,7 @@ router.get('/enroll-company', TOKEN.verifyToken, (req, res) => {
 })
 
 router.get('/enroll-company/:id', TOKEN.verifyToken, (req, res) => {
-    
+
     EnrollCompany.findOne({_id: req.params.id}, function(err, enrolledCompany) {
 
         if (err) {
@@ -293,7 +295,7 @@ router.get('/enroll-company/:id', TOKEN.verifyToken, (req, res) => {
 })
 
 router.get('/pack', TOKEN.verifyToken, (req, res) => {
-    
+
     Pack.find({}).exec(function(err, packs) {
 
         if (err) {
@@ -317,8 +319,8 @@ router.route('/login').post((req, res) => {
             console.log('Error finding the registeredUser');
             res.status(500).json(error);
         } else {
-            if (typeof registeredUser === 'undefined' 
-                || !registeredUser 
+            if (typeof registeredUser === 'undefined'
+                || !registeredUser
                 || !password.passwordMatched(req.body.password, registeredUser.password)) {
 
                 res.status(401).json({message : "incorrect UserName or Password"});
@@ -354,7 +356,7 @@ router.route('/register').post((req, res) => {
             console.log('Error finding the enrolled company');
             return res.status(500).json(error);
         } else if ((typeof enrollCompany !== 'undefined' && enrollCompany) || req.body.isAdmin) {
-            
+
             registerUser.save(function(err, inserted) {
                 if (err) {
                     console.log('Unable to register the User');
@@ -385,11 +387,11 @@ router.route('/enroll').post((req, res) => {
             console.log(err);
             res.json(err);
         } else if (typeof enrollCompany  !== "undefined" && enrollCompany) {
-            
+
             newEnroll.packs = enrollCompany.packs;
             newEnroll.remove({_id: req.body.host_identifier});
             newEnroll.save(function(err, inserted) {
-        
+
                 if (err) {
                     console.log('Unable to save the enrollement');
                     console.log(err);
@@ -397,7 +399,7 @@ router.route('/enroll').post((req, res) => {
                 } else {
                     res.json({node_key: req.body.host_identifier, node_invalid: false});
                 }
-        
+
             });
         } else {
             res.json({node_key: req.body.host_identifier, node_invalid: true});
@@ -407,9 +409,9 @@ router.route('/enroll').post((req, res) => {
 })
 
 router.route('/config').post((req, res) => {
-    
+
     var node_key = req.body.node_key;
-    
+
     EnrollNode.findOne({_id: node_key}, async function (error, enrollment) {
         if (error) {
             console.log(error);
@@ -427,7 +429,7 @@ router.route('/config').post((req, res) => {
 })
 
 async function getEnrolmentPacks(enrollment) {
-    
+
     var config = {
         options : {
             "host_identifier": "hostname"
@@ -436,13 +438,13 @@ async function getEnrolmentPacks(enrollment) {
         "node_invalid": false
     };
 
-    const allQueries = async _ => { 
+    const allQueries = async _ => {
 
         for (let i = 0; i < enrollment.packs.length; i++) {
             let element = enrollment.packs[i];
             let queries = await getQueriesFromPack(element);
             config.packs[element] = queries;
-        }        
+        }
     }
 
     await allQueries();
@@ -455,7 +457,7 @@ async function getQueriesFromPack(element) {
     const pack = await Pack.findOne({_id: element});
     pack.queries.forEach( query => {
         queries.queries[query._id] = {"query": query.query, "interval": query.interval, "description": query.description};
-    });    
+    });
     return queries;
 }
 
