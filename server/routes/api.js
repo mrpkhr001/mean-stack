@@ -15,7 +15,7 @@ const RegisterUser = require('../models/register-user');
 const UserSecret = require('../models/user-secret');
 const UserService = require('../models/user-service');
 
-const DATABASE_URL = process.env.DATABASE_URL || "mongodb://opstinuum:opstinuum@localhost:27017/opstinuum?retryWrites=true&w=majority";
+const DATABASE_URL = process.env.DATABASE_URL || "mongodb://localhost:27017";
 
 const options = {
     useNewUrlParser: true,
@@ -29,7 +29,9 @@ const options = {
     bufferMaxEntries: 0,
     connectTimeoutMS: 10000, // Give up initial connection after 10 seconds
     socketTimeoutMS: 45000, // Close sockets after 45 seconds of inactivity
-    family: 4 // Use IPv4, skip trying IPv6
+    family: 4, // Use IPv4, skip trying IPv6
+    useUnifiedTopology: true,
+    dbName: process.env.DATABASE_NAME || "meanStack"
 };
 
 mongoose.connect(DATABASE_URL, options).then(
