@@ -3,7 +3,7 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
-app-login, app-register {
+app-login, app-register, ng-component {
   display: block;
   width: 100%;
 }

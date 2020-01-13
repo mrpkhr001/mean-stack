@@ -1,7 +1,7 @@
 <div class="box">
   <div class="row header">
-    <mat-toolbar>
-      <mat-toolbar-row>
+    <mat-toolbar color="primary">
+      <mat-toolbar-row >
           <span class="menu-spacer"></span>
           <a mat-button [routerLink]="'/home'"><mat-icon aria-hidden="false" aria-label="Example home icon">home</mat-icon></a>
           <a mat-button *ngIf="isAdmin && isUserLoggedIn()" [routerLink]="'/enroll'">Organizations</a>
@@ -11,18 +11,20 @@
           <a mat-button *ngIf="isUserLoggedIn()" [routerLink]="'/nodes'">Nodes</a> -->
           <!-- This fills the remaining space of the current row -->
           <span class="example-fill-remaining-space"></span>
-          <a mat-button *ngIf="!isAdmin && isUserLoggedIn()" [routerLink]="'/my-organisation'">My Profile</a>
-          <a mat-raised-button [color]="'success'" *ngIf="!isUserLoggedIn()" [routerLink]="'/login'">Login</a>
-          <a mat-button *ngIf="!isUserLoggedIn()" [routerLink]="'/register'">Register</a>    
-          <a mat-raised-button color="warn" *ngIf="isUserLoggedIn()" (click)="logoutUser()" [routerLink]="'/logout'">Logout</a>    
-      </mat-toolbar-row>  
+          <a mat-button *ngIf="!isAdmin && isUserLoggedIn()" [routerLink]="'/my-organisation'" >My Profile</a>
+          <a mat-button *ngIf="!isUserLoggedIn()" [routerLink]="'/login'" routerLinkActive="d-none">Login</a>
+          <a mat-button *ngIf="!isUserLoggedIn()" [routerLink]="'/register'" routerLinkActive="d-none">Register</a>
+          <a mat-button  *ngIf="isUserLoggedIn()" (click)="logoutUser()" [routerLink]="'/logout'">Logout</a>
+      </mat-toolbar-row>
     </mat-toolbar>
   </div>
-  <div class="row content"> 
+  <div class="row content">
     <router-outlet></router-outlet>
-  </div>    
+  </div>
   <div class="row footer">
-    &copy; <a href="https://www.canuminfotech.com/">Canum Infotech</a>
+    <div class="col-12">
+      &copy; <a mat-icon-button  href="https://www.canuminfotech.com/">Canum Infotech</a>
+    </div>
   </div>
 </div>
 

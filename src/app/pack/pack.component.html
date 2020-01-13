@@ -1,13 +1,11 @@
 <div>
   <div *ngIf="showPack; else notShow">
     <mat-card class="example-card">
-      <mat-card-header>
         <div *ngIf="isAdmin">
           <mat-card-title>Packs<span style="float:right;"><button mat-raised-button
                                                                   (click)="showPacks()">New Pack</button></span>
           </mat-card-title>
         </div>
-      </mat-card-header>
       <mat-card-content>
       </mat-card-content>
     </mat-card>

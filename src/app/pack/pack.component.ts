@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { RegisterService } from '../register.service';
 
 @Component({
-  selector: 'app-pack',
+  selector: '',
   templateUrl: './pack.component.html',
   styleUrls: ['./pack.component.css']
 })
@@ -41,7 +41,7 @@ export class PackComponent implements OnInit {
     },
       error => this.errorMsg = error
     );
-          
+
   }
 
   showPacks() {

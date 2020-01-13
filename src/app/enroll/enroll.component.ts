@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 import { RegisterService } from '../register.service';
 
 @Component({
-  selector: 'app-enroll',
+  selector: '',
   templateUrl: './enroll.component.html',
   styleUrls: ['./enroll.component.css']
 })
@@ -19,7 +19,7 @@ export class EnrollComponent implements OnInit {
   public enrolledCompanies = [];
   public errorMsg;
   public isAdmin: boolean = false;
-  
+
   displayedColumns: string[] = ['companyName', 'companyAddress', 'country', 'phone', 'website', 'enrollmentSecret'];
   dataSource = this.enrolledCompanies;
 
@@ -39,11 +39,11 @@ export class EnrollComponent implements OnInit {
           }
           this.errorMsg = error
         });
-          
-    this._packService.getPacks().subscribe(data => 
-      {this.allPacks = data; this.allPacks.forEach(pack => this.availablePacks.push(pack._id))}, 
+
+    this._packService.getPacks().subscribe(data =>
+      {this.allPacks = data; this.allPacks.forEach(pack => this.availablePacks.push(pack._id))},
       error => this.errorMsg = error);
-    
+
     this._registerService.getUserRole().subscribe(data => {
         {
           if (data.role === "ADMIN") {
@@ -57,11 +57,11 @@ export class EnrollComponent implements OnInit {
     );
 
   }
-  
+
   appliedPacks: string[] = [];
   availablePacks: string[] = [];
   allPacks: IPack[] = [];
-  
+
 
   public enrollCompany() {
     this.showEnrollments = true;

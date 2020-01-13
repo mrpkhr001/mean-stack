@@ -1,14 +1,12 @@
 <div class="registration-container">
 
   <mat-divider></mat-divider>
-  <mat-card class="registration-card">
+  <mat-card class="registration-card" >
     <form class="registration-form" #userRegistrationForm="ngForm" (ngSubmit)="registerUser()">
-      <mat-card-header>
-        <mat-card-title>User Registration</mat-card-title>
-      </mat-card-header>
+      <mat-card-title >Register Here</mat-card-title>
       <mat-card-content>
 
-        <mat-slide-toggle class="registration-margin" [checked]="registration.isAdmin" [color]="color"
+        <mat-slide-toggle class="registration-type" [checked]="registration.isAdmin" [color]="color"
                           [(ngModel)]="registration.isAdmin" name="isAdmin">Register as Admin
         </mat-slide-toggle>
 
@@ -16,9 +14,11 @@
           <input matInput type="email" placeholder="Email" [(ngModel)]="registration._id" name="_id">
         </mat-form-field>
         <mat-form-field class="registration-full-width">
+
           <input matInput type="text" placeholder="Name" [(ngModel)]="registration.name" name="name">
         </mat-form-field>
         <mat-form-field class="registration-full-width">
+
           <input matInput [type]="hide ? 'text' : 'password'" placeholder="Password" [(ngModel)]="registration.password"
                  name="password">
           <button mat-icon-button matSuffix type="button" (click)="hide = !hide" [attr.aria-label]="'Hide password'"
@@ -42,8 +42,8 @@
         </div>
 
       </mat-card-content>
-      <mat-card-actions>
-        <button mat-raised-button class="submit-btn" type="submit">Register</button>
+      <mat-card-actions align="end">
+        <button mat-raised-button color="accent" class="submit-btn" type="submit">Register</button>
       </mat-card-actions>
     </form>
   </mat-card>
